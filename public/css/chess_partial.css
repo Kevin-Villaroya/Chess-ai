@@ -1,0 +1,56 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  background: #312e2b;
+  margin: 0;
+  padding: 0;
+}
+
+.chess-table {
+  height: 400px;
+  width: 400px;
+  display: flex;
+}
+
+.piece-square {
+  width: 50px;
+  height: 50px;
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.piece {
+  width: 40px;
+  height: 45px;
+}
+
+.piece-square-text {
+  position: absolute;
+  bottom: 1px;
+  right: 2px;
+  font-size: 8px;
+  opacity: 0.7;
+  font-family: Arial;
+}
+
+.black-square .piece-square-text {
+  color: #eeeed2;
+}
+
+.white-square .piece-square-text {
+  color: #769656;
+}
+
+.piece-square.white-square {
+  background: #eeeed2;
+}
+
+.piece-square.black-square {
+  background: #769755;
+}
