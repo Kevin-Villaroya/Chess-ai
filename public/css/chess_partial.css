@@ -10,14 +10,20 @@ body {
 }
 
 .chess-table {
-  height: 400px;
-  width: 400px;
+  height: 800px;
+  width: 800px;
   display: flex;
+  flex-direction: column;
+}
+
+.chess-row {
+  display: flex;
+  flex-direction: row-reverse;
 }
 
 .piece-square {
-  width: 50px;
-  height: 50px;
+  width: 100px;
+  height: 100px;
   box-sizing: border-box;
   position: relative;
   display: flex;
@@ -26,8 +32,8 @@ body {
 }
 
 .piece {
-  width: 40px;
-  height: 45px;
+  width: 80px;
+  height: 90px;
 }
 
 .piece-square-text {
@@ -37,6 +43,24 @@ body {
   font-size: 8px;
   opacity: 0.7;
   font-family: Arial;
+}
+
+.possibleMovement {
+  height: 30px;
+  width: 30px;
+  background-color: #6d645f9c;
+  border-radius: 50%;
+  display: inline-block;
+  position: absolute;
+}
+
+.possibleAttack {
+  height: 90px;
+  width: 90px;
+  border: 6px solid #6d645f9c;
+	border-radius: 50%;
+	display: inline-block;
+  position: absolute;
 }
 
 .black-square .piece-square-text {
@@ -51,6 +75,26 @@ body {
   background: #eeeed2;
 }
 
+.piece-square.white-square:hover {
+  background: #b4b4a1;
+}
+
 .piece-square.black-square {
-  background: #769755;
+  background: #6f8f4f;
+}
+
+.piece-square.black-square:hover {
+  background: #52693b;
+}
+
+.piece-square:has(.piece)  {
+  background: #b4b4a1;
+}
+
+.selectedPiece.black-square {
+  background: #b4d307 !important;
+}
+
+.selectedPiece.white-square {
+  background: #f1f152 !important;
 }

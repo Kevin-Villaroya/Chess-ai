@@ -3,19 +3,23 @@
 
 <head>
   <%- include('../partials/head'); %>
+  <script src="/js/index.js"></script>
+  <script src="/js/utils.js"></script>
 </head>
 
-<body class="container">
+<body>
 
   <header>
     <%- include('../partials/header'); %>
   </header>
 
   <main>
-    <div class="jumbotron">
-      <h1>This is great</h1>
-      <p>Welcome to templating using EJS</p>
-    </div>
+    <h1>Make your own chess ai</h1>
+
+    <a href="/play" onclick="setTypeGame('local')" class="button">
+      Play locally
+    </a>
+
   </main>
 
   <footer>
