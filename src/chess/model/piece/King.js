@@ -8,6 +8,14 @@ module.exports = class King extends Piece{
         this.moved = false;
     }
 
+    copy(){
+        let copy = new King(this.color, this.position.getString());
+        copy.moves = this.moves;
+        copy.moved = this.moved;
+
+        return copy;
+    }
+
     move(position, pieces){
         let verifyRockCastle = this.verifyRockCastle(position);
         let canMove = super.move(position);

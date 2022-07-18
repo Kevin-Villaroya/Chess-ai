@@ -7,6 +7,13 @@ module.exports = class Bishop extends Piece{
         this.type = "Bishop";
     }
 
+    copy(){
+        let copy = new Bishop(this.color, this.position.getString());
+        copy.moves = this.moves;
+
+        return copy;
+    }
+
     setPossibleMoves(pieces){
         super.setPossibleMoves(pieces);
 

@@ -1,6 +1,4 @@
 const { positionFromString } = require('../Position');
-const Position = require('../Position');
-const lodash = require('lodash');
 
 module.exports = class Piece{
   constructor(color, position){
@@ -36,40 +34,6 @@ module.exports = class Piece{
   setPossibleMoves(pieces){
     this.moves = new Array();
   }
-  
-  verifyIfMovesAreValid(pieces){
-    //verify if after the move of the piece, the king is in check
-    let movesToDelete = new Array();
-
-    for(let move of this.moves){
-      let newPieces = lodash.cloneDeep(pieces);
-
-      let newPiece = Object.create(this);
-      newPiece.move(move, newPieces);
-
-      let pieceEated = this.getPiece(newPieces, move);
-      if(pieceEated != null){
-        newPieces.splice(newPieces.indexOf(pieceEated), 1);
-      }
-
-      newPieces.splice(newPieces.indexOf(this), 1);
-      newPieces.push(newPiece);
-
-      for (let piece of newPieces) {
-        if(piece.color != this.color){
-          piece.setPossibleMoves(newPieces);
-        }
-      }
-
-      if(this.inCheckMate(newPieces, this.color)){
-        movesToDelete.push(move);
-      }
-    }
-
-    for(let move of movesToDelete){
-      this.moves.splice(this.moves.indexOf(move), 1);
-    }
-  }
 
   getPiece(pieces, position){
     for(let piece of pieces){      
@@ -90,17 +54,56 @@ module.exports = class Piece{
     }
   }
 
+  copy(){}
+
+  verifyIfMovesAreValid(pieces){
+    //verify if after the move of the piece, the king is in check
+    let movesToDelete = new Array();
+    let newPieces = new Array();
+
+    for(let move of this.moves){
+      newPieces = new Array();
+
+      for(let piece of pieces){
+        newPieces.push(piece.copy());
+      }
+
+      let newPiece = this.getPiece(newPieces, this.position);
+      let pieceEated = this.getPiece(newPieces, move);
+
+      newPiece.move(move, newPieces);
+
+      if(pieceEated != null){
+        newPieces.splice(newPieces.indexOf(pieceEated), 1);
+      }
+
+      for (let piece of newPieces) {
+        if(piece.color != this.color){
+          piece.setPossibleMoves(newPieces);
+        }
+      }
+
+      if(this.inCheckMate(newPieces, this.color)){
+        movesToDelete.push(move);
+      }
+    }
+
+    for(let move of movesToDelete){
+      this.moves.splice(this.moves.indexOf(move), 1);
+    }  
+  }
+
   inCheckMate(pieces, color){
     let king;
 
     for(let piece of pieces){
-      if(piece.color == color && piece.type == "King"){
-        king = piece;
-      }
+        if(piece.color == color && piece.type == "King"){
+          king = piece;
+        }
     }
 
     for(let piece of pieces){
-      if(piece.color != color){
+        if(piece.color != color){
         for(let move of piece.moves){
           if(move.equals(king.position)){
             return true;
@@ -116,18 +119,17 @@ module.exports = class Piece{
     for(let piece of pieces){
       if(piece.color != color){
         for(let move of piece.moves){
-          if(move.equals(position)){
-            return true;
+           if(move.equals(position)){
+              return true;
+            }
           }
-        }
-      }
+       }
     }
 
-    return false;
+  return false;
   }
 
   outOfBounds(position){
-    return position.column < 1 || position.column > 8 || position.getRow() < 'a' || position.getRow() > 'h';
+      return position.column < 1 || position.column > 8 || position.getRow() < 'a' || position.getRow() > 'h';
   }
-
 }

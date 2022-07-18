@@ -1,4 +1,1 @@
-verifier un etat de check, proposer que les coups dans les quels il n'est pas en check
-verifier un etat de check mate et envoyer le gagnant aux deux joueurs
-
-ne pas visualiser les coups des ennemies client
+etat d'echec post son coup est encore buggé

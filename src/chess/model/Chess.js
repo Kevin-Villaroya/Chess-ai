@@ -178,6 +178,20 @@ module.exports = class Chess {
     return null;
   }
 
+  verifyIfGameOver(){
+    let gameOver = true;
+
+    for(let piece of this.pieces){
+      if(piece.color != this.colorTurn){
+        if(piece.moves.length > 0){
+          return false;
+        }
+      }
+    }
+
+    return true;
+  }
+
   setAllPossibleMoves(){
     let king;
 
@@ -205,9 +219,9 @@ module.exports = class Chess {
   movePiece(positionInit, positionFinal){
     let piece = this.getPiece(positionFromString(positionInit));
 
-    this.unsetDoubleMoves();
-
     if(piece != null && piece.color == this.colorTurn){
+      this.unsetDoubleMoves();
+
       let pieceToRemove = this.getPiece(positionFromString(positionFinal));
 
       if(piece.move(positionFromString(positionFinal), this.pieces)){
@@ -215,8 +229,16 @@ module.exports = class Chess {
           this.pieces.splice(this.pieces.indexOf(pieceToRemove), 1);
         }
 
-        this.changeTurn();
-        this.sendGameState();
+        let gameOver = this.verifyIfGameOver();
+
+        if(gameOver){
+          console.log('Game Over', this.colorTurn);
+          this.winner = this.colorTurn;
+          this.sendGameOver();
+        }else{
+          this.changeTurn();
+          this.sendGameState();
+        }
       }
     }
   }
@@ -232,7 +254,11 @@ module.exports = class Chess {
   unsetDoubleMoves(){
     for(let piece of this.pieces){
       if(piece.type == 'Pawn'){
-        piece.doubleMovement = false;
+        if(piece.doubleMovementInThisTurn){
+          piece.doubleMovementInThisTurn = false;
+        }else if(piece.doubleMovement){
+          piece.doubleMovement = false;
+        }
       }
     }
   }

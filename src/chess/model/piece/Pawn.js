@@ -7,7 +7,19 @@ module.exports = class Pawn extends Piece{
         this.type = "Pawn";
 
         this.moved = false;
+
         this.doubleMovement = false;
+        this.doubleMovementInThisTurn = false;
+    }
+
+    copy(){
+        let copy = new Pawn(this.color, this.position.getString());
+        //copy.moves = this.moves;
+        copy.moved = this.moved;
+        copy.doubleMovement = this.doubleMovement;
+        copy.doubleMovementInThisTurn = this.doubleMovementInThisTurn;
+
+        return copy;
     }
 
     move(position, pieces){
@@ -21,6 +33,7 @@ module.exports = class Pawn extends Piece{
 
             if(Math.abs(positionInit.column - position.column) == 2){
                 this.doubleMovement = true;
+                this.doubleMovementInThisTurn = true
             }
 
             if(isEnPassant == 'left'){

@@ -7,6 +7,13 @@ module.exports = class Queen extends Piece{
         this.type = "Queen";
     }
 
+    copy(){
+        let copy = new Queen(this.color, this.position.getString());
+        copy.moves = this.moves;
+
+        return copy;
+    }
+
     setPossibleMoves(pieces){
         super.setPossibleMoves(pieces);
 

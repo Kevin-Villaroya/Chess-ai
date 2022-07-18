@@ -8,6 +8,13 @@ module.exports = class Rook extends Piece{
         this.moved = false;
     }
 
+    copy(){
+        let copy = new Rook(this.color, this.position.getString());
+        copy.moves = this.moves;
+
+        return copy;
+    }
+
     setPossibleMoves(pieces){
         super.setPossibleMoves(pieces);
 

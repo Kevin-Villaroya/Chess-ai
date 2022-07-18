@@ -7,6 +7,13 @@ module.exports = class Knight extends Piece{
         this.type = "Knight";
     }
 
+    copy(){
+        let copy = new Knight(this.color, this.position.getString());
+        copy.moves = this.moves;
+
+        return copy;
+    }
+
     setPossibleMoves(pieces){
         super.setPossibleMoves(pieces);
 
