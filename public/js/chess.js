@@ -113,13 +113,12 @@ function squareContainPiece(idSquare){
 }
 
 function getPiece(idSquare){
-  var piece = null;
-
-  if(pieces[idSquare] != null){
-    piece = pieces[idSquare];
+  for(let piece of pieces){
+    if(convertPosition(piece.position) == idSquare){
+      return piece;
+    }
   }
-
-  return piece;
+  return null;
 }
 
 /** =========================================  DISPLAY FUNCTIONS  ==================================================== **/
@@ -137,24 +136,24 @@ function displayIdSquares(hasToDisplayId){
 }
 
 function displayPieces(pieces){
-  for(let i = 0; i < 8; i++){
-    for(let j = 0; j < 8; j++){
-      var squareBoard = numberToLetterAlphabet(i + 1) + (j + 1);
+  for(let i = 1; i <= 8; i++){
+    for(let j = 1; j <= 8; j++){
+      var idSquare = numberToLetterAlphabet(i) + j;
 
-      if(pieces[squareBoard] != null){
-        removePiece(squareBoard);
-        addPiece(squareBoard, pieces[squareBoard].type, pieces[squareBoard].color);
-      }else{
-        removePiece(squareBoard);
-      }
+      removePiece(idSquare);
     }
+  }
+
+
+  for(piece of pieces){
+    addPiece(convertPosition(piece.position), piece.type, piece.color);
   }
 }
 
 function displayMovements(movements){
 
   for(let i = 0; i < possibleMovements.length; i++){
-    var square = document.getElementById(possibleMovements[i]);
+    var square = document.getElementById(convertPosition(possibleMovements[i]));
 
     for(element of square.childNodes){
       if(element.classList.contains("possibleMovement") || element.classList.contains("possibleAttack")){
@@ -164,10 +163,11 @@ function displayMovements(movements){
   }
 
   for(let i = 0; i < movements.length; i++){
-    var square = document.getElementById(movements[i]);
+    var movement = convertPosition(movements[i]);
+    var square = document.getElementById(movement);
     var div = document.createElement('div');
 
-    if(getPiece(movements[i]) == null){
+    if(getPiece(movement) == null){
       div.classList.add("possibleMovement");
       square.appendChild(div)
     }else{
@@ -201,4 +201,11 @@ function getImageOfPiece(type, color){
   var render = "/assets/pieces/" + color + '_' + type + '.png';
 
   return render;
+}
+
+function convertPosition(position){
+  var letter = String.fromCharCode(position.row + 64).toLowerCase();
+  var number = position.column;
+
+  return letter + number;
 }

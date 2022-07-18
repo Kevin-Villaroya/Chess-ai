@@ -7,7 +7,6 @@ module.exports = class Position {
   static positionFromString(string) {
     let row = string.charCodeAt(0) - 64;
     let column = parseInt(string.charAt(1));
-
     return new Position(row, column);
   }
 
@@ -30,15 +29,15 @@ module.exports = class Position {
   }
 
   addColumn(value){
-    this.column += value;
+    return new Position(this.row, this.column + value);
   }
 
   addRow(value){
-    this.row += value;
+    return new Position(this.row + value, this.column);
   }
 
   equals(position) {
-    return this.row == position.getRow() && this.column == position.getColumn();
+    return this.row == position.row && this.column == position.column;
   }
 
   getString() {
