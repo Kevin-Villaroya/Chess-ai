@@ -4,6 +4,7 @@ const Bishop = require('./piece/Bishop');
 const Queen = require('./piece/Queen');
 const King = require('./piece/King');
 const Pawn = require('./piece/Pawn');
+const { positionFromString } = require('./Position');
 
 /** ============================== INIT  ============================== **/
 
@@ -82,11 +83,25 @@ module.exports = class Chess {
 
   /** ============================== SOCKET  ============================== **/
 
+  getDataPieces(){
+    let dataPieces = new Array();
+
+    for(let piece of this.pieces){
+      if(piece.color != this.colorTurn){
+        dataPieces.push(piece.getData());
+      }else{
+        dataPieces.push(piece);
+      }
+    }
+
+    return dataPieces;
+  }
+
   startGame(){
     this.setAllPossibleMoves();
 
     this.player1.socket.emit('startGame', {
-      pieces: this.pieces,
+      pieces: this.getDataPieces(),
       colorPlayer: this.player1.color,
       colorTurn: this.colorTurn
     });
@@ -101,12 +116,10 @@ module.exports = class Chess {
   }
 
   sendGameState(){
-    for (let piece in this.pieces) {
-      this.checkValidityOfPossibleMoves(piece);
-    }
+    this.setAllPossibleMoves();
 
     let gameState = {
-      pieces: this.pieces,
+      pieces: this.getDataPieces(),
       colorTurn: this.colorTurn,
     }
 
@@ -155,6 +168,16 @@ module.exports = class Chess {
 
   /** ============================== MECANICS  ============================== **/
 
+  getPiece(position){
+    for(let piece of this.pieces){      
+      if(piece.position.equals(position)){
+        return piece;
+      }
+    }
+    
+    return null;
+  }
+
   setAllPossibleMoves(){
     let king;
 
@@ -179,5 +202,39 @@ module.exports = class Chess {
     king.verifyIfMovesAreValid(this.pieces);
   }
 
+  movePiece(positionInit, positionFinal){
+    let piece = this.getPiece(positionFromString(positionInit));
+
+    this.unsetDoubleMoves();
+
+    if(piece != null && piece.color == this.colorTurn){
+      let pieceToRemove = this.getPiece(positionFromString(positionFinal));
+
+      if(piece.move(positionFromString(positionFinal), this.pieces)){
+        if(pieceToRemove != null){
+          this.pieces.splice(this.pieces.indexOf(pieceToRemove), 1);
+        }
+
+        this.changeTurn();
+        this.sendGameState();
+      }
+    }
+  }
+
+  changeTurn(){
+    if(this.colorTurn == 'white'){
+      this.colorTurn = 'black';
+    }else{
+      this.colorTurn = 'white';
+    }
+  }
+
+  unsetDoubleMoves(){
+    for(let piece of this.pieces){
+      if(piece.type == 'Pawn'){
+        piece.doubleMovement = false;
+      }
+    }
+  }
 
 }

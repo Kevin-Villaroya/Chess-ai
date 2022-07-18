@@ -6,7 +6,7 @@ var idSquareSelected = null;
 var idSquareMovementSelected = null;
 
 var possibleMovements = {};
-var pieces;
+var pieces = new Array();
 
 var colorPlayer;
 var colorTurn;
@@ -26,12 +26,13 @@ async function enterRoom(){
   })
 
   socket.on("startGame", (data) => {
-    displayPieces(data.pieces);
-
     colorPlayer = data.colorPlayer;
     colorTurn = data.colorTurn;
     pieces = data.pieces;
 
+    convertPiecesMoves();
+
+    displayPieces(pieces);
     listenGameSate();
   });
 }
@@ -47,7 +48,9 @@ function listenGameSate(){
     colorTurn = data.colorTurn;
     pieces = data.pieces;
 
-    displayPieces(data.pieces);
+    convertPiecesMoves();
+
+    displayPieces(pieces);
     displayMovements([]);
   }
   );
@@ -114,7 +117,7 @@ function squareContainPiece(idSquare){
 
 function getPiece(idSquare){
   for(let piece of pieces){
-    if(convertPosition(piece.position) == idSquare){
+    if(piece.position == idSquare){
       return piece;
     }
   }
@@ -146,14 +149,14 @@ function displayPieces(pieces){
 
 
   for(piece of pieces){
-    addPiece(convertPosition(piece.position), piece.type, piece.color);
+    addPiece(piece.position, piece.type, piece.color);
   }
 }
 
 function displayMovements(movements){
 
   for(let i = 0; i < possibleMovements.length; i++){
-    var square = document.getElementById(convertPosition(possibleMovements[i]));
+    var square = document.getElementById(possibleMovements[i]);
 
     for(element of square.childNodes){
       if(element.classList.contains("possibleMovement") || element.classList.contains("possibleAttack")){
@@ -163,7 +166,7 @@ function displayMovements(movements){
   }
 
   for(let i = 0; i < movements.length; i++){
-    var movement = convertPosition(movements[i]);
+    var movement = movements[i];
     var square = document.getElementById(movement);
     var div = document.createElement('div');
 
@@ -203,7 +206,20 @@ function getImageOfPiece(type, color){
   return render;
 }
 
-function convertPosition(position){
+function convertPiecesMoves(){
+
+  pieces.forEach(piece => {
+    let moves = new Array();
+
+    piece.moves.forEach(move => {
+      moves.push(positionToKey(move));
+    });
+    piece.moves = moves;
+    piece.position = positionToKey(piece.position);
+  });
+}
+
+function positionToKey(position){
   var letter = String.fromCharCode(position.row + 64).toLowerCase();
   var number = position.column;
 

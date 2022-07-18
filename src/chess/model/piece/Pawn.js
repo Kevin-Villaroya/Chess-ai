@@ -10,6 +10,29 @@ module.exports = class Pawn extends Piece{
         this.doubleMovement = false;
     }
 
+    move(position, pieces){
+        let positionInit = this.position;
+        let isEnPassant = this.verifyIsEnPassant(pieces);
+
+        let canMove = super.move(position);
+
+        if(canMove){
+            this.moved = true;
+
+            if(Math.abs(positionInit.column - position.column) == 2){
+                this.doubleMovement = true;
+            }
+
+            if(isEnPassant == 'left'){
+                pieces.splice(pieces.indexOf(pieces.find(piece => piece.position.equals(positionInit.addRow(-1)))), 1);
+            }else if(isEnPassant == 'right'){
+                pieces.splice(pieces.indexOf(pieces.find(piece => piece.position.equals(positionInit.addRow(1)))), 1);
+            }
+        }
+
+        return canMove;
+    }
+
     setPossibleMoves(pieces){
         super.setPossibleMoves(pieces);
 
@@ -20,15 +43,20 @@ module.exports = class Pawn extends Piece{
             positionForward = this.position.addColumn(1);
             positionForward2 = this.position.addColumn(2);
 
-            this.checkMoveValidityOfNormalMove(positionForward, pieces);
-            this.checkMoveValidityOfDoubleMove(positionForward2, pieces);
+            let canMove = this.checkMoveValidityOfNormalMove(positionForward, pieces);
+            if(canMove){
+                this.checkMoveValidityOfDoubleMove(positionForward2, pieces);
+            }
+            
             
         }else{
             positionForward = this.position.addColumn(-1);
             positionForward2 = this.position.addColumn(-2);
 
-            this.checkMoveValidityOfNormalMove(positionForward, pieces);
-            this.checkMoveValidityOfDoubleMove(positionForward2, pieces);
+            let canMove = this.checkMoveValidityOfNormalMove(positionForward, pieces);
+            if(canMove){
+                this.checkMoveValidityOfDoubleMove(positionForward2, pieces);
+            }
         }
 
         this.setEatMoves(pieces);
@@ -97,19 +125,38 @@ module.exports = class Pawn extends Piece{
         }
     }
 
+    verifyIsEnPassant(pieces){
+        let positionLeft = this.position.addRow(-1);
+        let positionRight = this.position.addRow(1);
+
+        let pieceLeft = this.getPiece(pieces, positionLeft);
+        let pieceRight = this.getPiece(pieces, positionRight);
+
+        if(pieceLeft != null && pieceLeft.type == 'Pawn' && pieceLeft.color != this.color && pieceLeft.doubleMovement){
+            return 'left';
+        }else if(pieceRight != null && pieceRight.type == 'Pawn' && pieceRight.color != this.color && pieceRight.doubleMovement){
+            return 'right';
+        }
+
+        return false;
+    }
+
     checkMoveValidityOfNormalMove(position, pieces){
         if(!this.outOfBounds(position)){
             let pieceForward =this.getPiece(pieces, position);
             
             if(pieceForward == null){
                 this.addMove(position);
+                return true;
             }
         }
+
+        return false;
     }
 
     checkMoveValidityOfDoubleMove(position, pieces){
         if(!this.outOfBounds(position)){
-            let pieceForward2 =this.getPiece(pieces, position);
+            let pieceForward2 = this.getPiece(pieces, position);
 
             if(pieceForward2 == null && !this.moved){
                 this.addMove(position);

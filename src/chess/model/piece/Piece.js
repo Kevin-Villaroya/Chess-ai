@@ -1,5 +1,6 @@
 const { positionFromString } = require('../Position');
 const Position = require('../Position');
+const lodash = require('lodash');
 
 module.exports = class Piece{
   constructor(color, position){
@@ -8,16 +9,18 @@ module.exports = class Piece{
     this.moves = new Array();
   }
 
+  move(position){
+    this.position = position;
+
+    return true;
+  }
+
   getColor(){
     return this.color;
   }
 
   getMoves(){
     return this.moves;
-  }
-  
-  move(position){
-    this.position = position;
   }
 
   addMoves(moves){
@@ -38,15 +41,16 @@ module.exports = class Piece{
     //verify if after the move of the piece, the king is in check
     let movesToDelete = new Array();
 
-    if(this.position.getString() == "c2"){
-      console.log(this.moves);
-   }
-
     for(let move of this.moves){
-      let newPieces = pieces.slice();
+      let newPieces = lodash.cloneDeep(pieces);
 
       let newPiece = Object.create(this);
-      newPiece.move(move);
+      newPiece.move(move, newPieces);
+
+      let pieceEated = this.getPiece(newPieces, move);
+      if(pieceEated != null){
+        newPieces.splice(newPieces.indexOf(pieceEated), 1);
+      }
 
       newPieces.splice(newPieces.indexOf(this), 1);
       newPieces.push(newPiece);
@@ -75,6 +79,15 @@ module.exports = class Piece{
     }
     
     return null;
+  }
+
+  getData(){
+    return {
+      color: this.color,
+      position: this.position,
+      moves: [],
+      type: this.type
+    }
   }
 
   inCheckMate(pieces, color){

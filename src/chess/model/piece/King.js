@@ -8,6 +8,29 @@ module.exports = class King extends Piece{
         this.moved = false;
     }
 
+    move(position, pieces){
+        let verifyRockCastle = this.verifyRockCastle(position);
+        let canMove = super.move(position);
+        
+        if(canMove){
+            this.moved = true;
+        }
+
+        if(verifyRockCastle == 'left'){
+            let rookPosition = new Position(this.position.row - 2, this.position.column);
+            let rook = this.getPiece(pieces, rookPosition);
+
+            rook.move(new Position(this.position.row + 1, this.position.column), pieces);
+        }else if(verifyRockCastle == 'right'){
+            let rookPosition = new Position(this.position.row + 1, this.position.column);
+            let rook = this.getPiece(pieces, rookPosition);
+
+            rook.move(new Position(this.position.row - 1, this.position.column), pieces);
+        }
+        
+        return canMove;
+    }
+
     setPossibleMoves(pieces){
         super.setPossibleMoves(pieces);
 
@@ -22,6 +45,16 @@ module.exports = class King extends Piece{
 
         this.checkValidityOfRookCastleLeft(pieces);
         this.checkValidityOfRookCastleRight(pieces);
+    }
+
+    verifyRockCastle(position){
+        if(position.row - this.position.row == 2){
+            return 'right';
+        }else if(position.row - this.position.row == -2){
+            return 'left';
+        }
+
+        return true;
     }
 
     checkValidityOfPosition(pieces, position){
