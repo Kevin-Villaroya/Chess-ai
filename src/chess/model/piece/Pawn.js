@@ -24,7 +24,7 @@ module.exports = class Pawn extends Piece{
 
     move(position, pieces){
         let positionInit = this.position;
-        let isEnPassant = this.verifyIsEnPassant(pieces);
+        let isEnPassant = this.verifyIsEnPassant(position, pieces);
 
         let canMove = super.move(position);
 
@@ -138,16 +138,19 @@ module.exports = class Pawn extends Piece{
         }
     }
 
-    verifyIsEnPassant(pieces){
+    verifyIsEnPassant(position, pieces){
         let positionLeft = this.position.addRow(-1);
         let positionRight = this.position.addRow(1);
 
         let pieceLeft = this.getPiece(pieces, positionLeft);
         let pieceRight = this.getPiece(pieces, positionRight);
 
-        if(pieceLeft != null && pieceLeft.type == 'Pawn' && pieceLeft.color != this.color && pieceLeft.doubleMovement){
+        let eatLeft = this.position.row - position.row == 1 && pieceLeft;
+        let eatRight = this.position.row - position.row == -1 && pieceRight;
+
+        if(eatLeft && pieceLeft != null && pieceLeft.type == 'Pawn' && pieceLeft.color != this.color && pieceLeft.doubleMovement){
             return 'left';
-        }else if(pieceRight != null && pieceRight.type == 'Pawn' && pieceRight.color != this.color && pieceRight.doubleMovement){
+        }else if(eatRight &&pieceRight != null && pieceRight.type == 'Pawn' && pieceRight.color != this.color && pieceRight.doubleMovement){
             return 'right';
         }
 
