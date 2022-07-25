@@ -3,29 +3,49 @@
 
 <head>
   <%- include('../partials/head'); %>
-  <script src="/js/index.js"></script>
-  <script src="/js/utils.js"></script>
+
+  <link rel="stylesheet" href="/css/index_style.css">
 </head>
 
 <body>
 
-  <header>
-    <%- include('../partials/header'); %>
-  </header>
+  <%- include('../partials/headerLeft'); %>  
 
   <main>
-    <h1>Make your own chess ai</h1>
+    <%- include('../partials/title'); %>
 
-    <a href="/play" onclick="setTypeGame('local')" class="button">
-      Play locally
-    </a>
+    <% if( locals.nickname) { %>
+      <div class = "menu-containers">
+        <div class = "row-menu-containers">
+
+          <div class ="column-menu-containers">
+            <%- include('../partials/indexContainer/statisticContainer'); %>
+          </div>
+          
+            <div class ="column-menu-containers">
+              <%- include('../partials/indexContainer/historicContainer'); %>
+              <%- include('../partials/indexContainer/editAIContainer'); %>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    <% }else{ %>
+      <h1 class = "main-title"> Welcome, to Chess AI </h1>
+
+      <a href="/play/local" onclick="setTypeGame('local')" class="button">
+        Play locally
+      </a>
+    <% } %>
 
   </main>
 
-  <footer>
-    <%- include('../partials/footer'); %>
-  </footer>
+  <%- include('../partials/headerRight'); %>
 
 </body>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="/js/index.js"></script>
+<script src="/js/utils.js"></script>
 
 </html>

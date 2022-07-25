@@ -30,17 +30,17 @@ module.exports = class Chess {
 
     this.pieces.push(new Rook('white', 'a1'));
     this.pieces.push(new Rook('white', 'h1'));
-    this.pieces.push(new Knight('white', 'c3'));
+    this.pieces.push(new Knight('white', 'b1'));
     this.pieces.push(new Knight('white', 'g1'));
-    this.pieces.push(new Bishop('white', 'c4'));
+    this.pieces.push(new Bishop('white', 'c1'));
     this.pieces.push(new Bishop('white', 'f1'));
-    this.pieces.push(new Queen('white', 'a5'));
+    this.pieces.push(new Queen('white', 'd1'));
     this.pieces.push(new King('white', 'e1'));
 
     this.pieces.push(new Pawn('white', 'a2'));
     this.pieces.push(new Pawn('white', 'b2'));
     this.pieces.push(new Pawn('white', 'c2'));
-    this.pieces.push(new Pawn('white', 'd5'));
+    this.pieces.push(new Pawn('white', 'd2'));
     this.pieces.push(new Pawn('white', 'e2'));
     this.pieces.push(new Pawn('white', 'f2'));
     this.pieces.push(new Pawn('white', 'g2'));
@@ -50,16 +50,16 @@ module.exports = class Chess {
     this.pieces.push(new Rook('black', 'h8'));
     this.pieces.push(new Knight('black', 'b8'));
     this.pieces.push(new Knight('black', 'g8'));
-    this.pieces.push(new Bishop('black', 'h4'));
+    this.pieces.push(new Bishop('black', 'c8'));
     this.pieces.push(new Bishop('black', 'f8'));
-    this.pieces.push(new Queen('black', 'd3'));
+    this.pieces.push(new Queen('black', 'd8'));
     this.pieces.push(new King('black', 'e8'));
 
     this.pieces.push(new Pawn('black', 'a7'));
     this.pieces.push(new Pawn('black', 'b7'));
     this.pieces.push(new Pawn('black', 'c7'));
     this.pieces.push(new Pawn('black', 'd7'));
-    this.pieces.push(new Pawn('black', 'e4'));
+    this.pieces.push(new Pawn('black', 'e7'));
     this.pieces.push(new Pawn('black', 'f7'));
     this.pieces.push(new Pawn('black', 'g7'));
     this.pieces.push(new Pawn('black', 'h7'));
@@ -262,5 +262,7 @@ module.exports = class Chess {
       }
     }
   }
+
+  
 
 }

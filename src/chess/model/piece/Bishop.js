@@ -33,7 +33,7 @@ module.exports = class Bishop extends Piece{
 
             canGoDirection = true;
 
-            if(this.outOfBounds(position)){
+            if(position.outOfBounds()){
                 canGoDirection = false;
             }else if(this.getPiece(pieces, position) != null){
                 if(this.getPiece(pieces, position).getColor() != this.color){

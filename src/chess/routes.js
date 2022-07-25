@@ -2,7 +2,7 @@ const express = require('express');
 let router = express.Router();
 
 //routes for the index page
-router.get('/', (req, res) => {
+router.get('/local', (req, res) => {
   res.render("pages/chess");
 });
 

@@ -126,10 +126,6 @@ module.exports = class Piece{
        }
     }
 
-  return false;
-  }
-
-  outOfBounds(position){
-      return position.column < 1 || position.column > 8 || position.getRow() < 'a' || position.getRow() > 'h';
+    return false;
   }
 }

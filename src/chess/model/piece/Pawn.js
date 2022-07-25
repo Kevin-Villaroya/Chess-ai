@@ -158,7 +158,7 @@ module.exports = class Pawn extends Piece{
     }
 
     checkMoveValidityOfNormalMove(position, pieces){
-        if(!this.outOfBounds(position)){
+        if(!position.outOfBounds()){
             let pieceForward =this.getPiece(pieces, position);
             
             if(pieceForward == null){
@@ -171,7 +171,7 @@ module.exports = class Pawn extends Piece{
     }
 
     checkMoveValidityOfDoubleMove(position, pieces){
-        if(!this.outOfBounds(position)){
+        if(!position.outOfBounds()){
             let pieceForward2 = this.getPiece(pieces, position);
 
             if(pieceForward2 == null && !this.moved){

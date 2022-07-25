@@ -43,4 +43,8 @@ module.exports = class Position {
   getString() {
     return '' + this.getRow() + this.getColumn();
   }
+
+  outOfBounds(){
+    return this.column < 1 || this.column > 8 || this.getRow() < 'a' || this.getRow() > 'h';
+  }
 }

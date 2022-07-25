@@ -69,7 +69,7 @@ module.exports = class King extends Piece{
         position = position.addColumn(this.position.column);
         position = position.addRow(this.position.row);
 
-        if(this.outOfBounds(position)){
+        if(position.outOfBounds()){
             return;
         }
 
@@ -99,7 +99,7 @@ module.exports = class King extends Piece{
         let positionLeft4 = new Position(this.position.row - 4, this.position.column);
         let pieceLeft4 = this.getPiece(pieces, positionLeft4);
 
-        if(this.outOfBounds(positionLeft) || this.outOfBounds(positionLeft2) || this.outOfBounds(positionLeft3) || this.outOfBounds(positionLeft4)){
+        if(positionLeft.outOfBounds() || positionLeft2.outOfBounds() || positionLeft3.outOfBounds() || positionLeft4.outOfBounds()){
             return;
         }
 
@@ -130,7 +130,7 @@ module.exports = class King extends Piece{
         let positionRight3 = new Position(this.position.row + 3, this.position.column);
         let pieceRight3 = this.getPiece(pieces, positionRight3);
 
-        if(this.outOfBounds(positionRight) || this.outOfBounds(positionRight2) || this.outOfBounds(positionRight3)){
+        if(positionRight.outOfBounds() || positionRight2.outOfBounds() || positionRight3.outOfBounds()){
             return;
         }
 
