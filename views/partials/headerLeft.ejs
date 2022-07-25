@@ -17,21 +17,36 @@
         <span class = "nav-link-span" href="/"> Login </span>
       </a>
     <% } %>
+
+    <% if(locals.nickname) { %>
+      <a href = "/play/competitive" class = "nav-link-component">
+        <img class = "nav-sprite" src = "/assets/nav-link/play-competitive.png"/>
+        <span class = "nav-link-span"> Play Competitive </span>
+      </a>
+    <% } %>
+
+    <a onclick="setTypeGame('local')" href = "/play/local" class = "nav-link-component">
+      <img class = "nav-sprite" src = "/assets/nav-link/play-local.png"/>
+      <span class = "nav-link-span"> Play Local </span>
+    </a>
   </div>
   
+
+
+
   <div class = "bottom-nav-links"> 
-    <a href = "/" class = "nav-link-component">
+    <a class = "nav-link-component">
       <img class = "nav-sprite" src = "/assets/nav-link/dark-mode.png"/>
       <span class = "nav-link-span" href="/"> Light mode </span>
     </a>
 
-    <a href = "/" class = "nav-link-component">
+    <a id = "reduce-header-left-button" onclick="reduceHeaderLeft()" class = "nav-link-component">
       <img class = "nav-sprite" src = "/assets/nav-link/reduce-left.png"/>
       <span class = "nav-link-span" href="/"> Reduce </span>
     </a>
 
     <% if( locals.nickname) { %>
-      <a href = "/" class = "nav-link-component">
+      <a class = "nav-link-component">
         <img class = "nav-sprite" src = "/assets/nav-link/disconnect.png"/>
         <span class = "nav-link-span" href="/"> Disconnect </span>
       </a>

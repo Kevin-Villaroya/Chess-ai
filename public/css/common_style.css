@@ -59,6 +59,33 @@ main{
     position: absolute;
 }
 
+#header-left.reduce-header-left{
+    width: 4%;
+
+    color : transparent;
+}
+
+.nav-link-span.reduce-header-left{
+    display: none;
+}
+
+.bottom-nav-links > .nav-link-component.reduce-header-left{
+    height: 30px;
+    width: auto;
+
+    aspect-ratio: 1;
+}
+
+.top-nav-links > .nav-link-component > .nav-sprite.reduce-header-left{
+    height: 40px;
+    width: auto;
+
+    aspect-ratio: 1;
+}
+
+#reduce-header-left-button > .nav-sprite.reduce-header-left{
+    transform: scaleX(-1);
+}
 
 .top-nav-links{
     flex-direction: column;
@@ -156,10 +183,11 @@ main{
 }
 
 #header-right{
-    width: 20%;
+    max-width: 20%;
+    width: fit-content;
+    height: fit-content;
 
-    top: 20%;
-    bottom: 20%;
+    top : 20%;
     right: 0;
 
     display: flex;
@@ -179,6 +207,16 @@ main{
     justify-content: start;
 
     height: 50%;
+    min-width: 300px;
+}
+
+.retractable-header-container.reduce-right-header{
+    visibility: visible;
+    min-width: 0px;
+}
+
+.retractable-header-container > .container-header-content.reduce-right-header{
+    display: none;
 }
 
 .container-header-title{
@@ -236,6 +274,14 @@ main{
 .reduce-container:hover{
     background-color: #208d05d7;
     cursor: pointer;
+}
+
+.reduce-container.reduce-right-header{
+    -webkit-transform:rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
 }
 
 /* Notification Container */

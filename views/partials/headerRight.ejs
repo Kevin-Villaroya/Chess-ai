@@ -1,10 +1,10 @@
 <div id="header-right">
-    <div class = "retractable-header-container">
+    <div class = "retractable-header-container" id = "notifications-header-container">
 
         <div class = "container-header-title">
             <img class = "image-container" src = "/assets/nav-link/notif.png"/>
             <span class = "title-header">Notifications</span>
-            <img class = "reduce-container" src = "/assets/nav-link/reduce-right.png"/>
+            <img onclick = "reduceRightHeader('notifications-header-container');" class = "reduce-container" src = "/assets/nav-link/reduce-right.png"/>
         </div>
 
         <div class = "container-header-content">
@@ -44,12 +44,12 @@
         
     </div> 
 
-    <div class = "retractable-header-container">
+    <div class = "retractable-header-container" id = "friends-header-container">
 
         <div class = "container-header-title"> 
             <img class = "image-container" src = "/assets/nav-link/friends.png"/>
             <span class = "title-header">Friends</span>
-            <img class = "reduce-container" src = "/assets/nav-link/reduce-right.png"/>
+            <img onclick = "reduceRightHeader('friends-header-container');" class = "reduce-container" src = "/assets/nav-link/reduce-right.png"/>
         </div>
 
         <div class = "container-header-content">
