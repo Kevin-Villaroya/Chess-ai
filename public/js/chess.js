@@ -16,6 +16,8 @@ var colorTurn;
 initChessBoard();
 enterRoom();
 
+toggleGameOverAlert();
+
 /** =========================================  SOCKET FUNCTIONS  ==================================================== **/
 
 async function enterRoom(){
@@ -34,6 +36,7 @@ async function enterRoom(){
 
     displayPieces(pieces);
     listenGameSate();
+    listenGameOver();
   });
 }
 
@@ -52,6 +55,20 @@ function listenGameSate(){
 
     displayPieces(pieces);
     displayMovements([]);
+  }
+  );
+}
+
+function listenGameOver(){
+  socket.on("gameOver", (data) => {
+    
+    if(data.winner == "draw"){
+      document.getElementsByClassName("game-over-winner-text")[0].innerHTML = "It's a draw !";
+    }else{
+      document.getElementsByClassName("game-over-winner-text")[0].innerHTML = "The winner is <span class = 'game-over-winner-color'>" + data.winner +  "</span> !";
+    }
+
+    toggleGameOverAlert();
   }
   );
 }
@@ -89,6 +106,14 @@ function initSquareEvent(){
 }
 
 /** =========================================  INTERACTION FUNCTIONS  ==================================================== **/
+function toggleGameOverAlert(){
+  if(document.getElementById("game-over").style.display == "block" || document.getElementById("game-over").style.display == ""){
+    document.getElementById("game-over").style.display = "none";
+  }else{
+    document.getElementById("game-over").style.display = "block";
+  }
+}
+
 function selectSquare(idSquare){
   if(possibleMovements.length > 0 && possibleMovements.includes(idSquare)){
     idSquareMovementSelected = idSquare;

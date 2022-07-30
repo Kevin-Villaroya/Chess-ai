@@ -50,6 +50,8 @@ function drawBackgroundColor() {
     maintainAspectRatio: false
   };
 
-  var chart = new google.visualization.LineChart(document.getElementById('menu-container-chart'));
-  chart.draw(data, options);
+  if(document.getElementById('menu-container-chart') != null){
+    var chart = new google.visualization.LineChart(document.getElementById('menu-container-chart'));
+    chart.draw(data, options);
+  }
 }

@@ -33,15 +33,16 @@
     <% }else{ %>
       <h1 class = "main-title"> Welcome, to Chess AI </h1>
 
-      <a href="/play/local" onclick="setTypeGame('local')" class="button">
-        Play locally
-      </a>
+      <span>
+        GO connect yourself
+      </span>
     <% } %>
 
   </main>
 
-  <%- include('../partials/headerRight'); %>
-
+  <% if( locals.nickname) { %>
+    <%- include('../partials/headerRight'); %>
+  <% } %>
 </body>
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>

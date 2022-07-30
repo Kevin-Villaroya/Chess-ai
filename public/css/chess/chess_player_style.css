@@ -1,0 +1,227 @@
+.player_score_container{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 80%;
+    height: 10%;
+    overflow: auto;
+}
+
+.player-score-column-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+
+.player-score-row-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+
+.captured-pieces-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+
+.player_score_flag{
+    height: 50%;
+
+    aspect-ratio: 2;
+}
+
+.player_score_image{
+    height: 100%;
+    aspect-ratio: 1;
+}
+
+/* CAPTURED PIECES */
+
+.captured-piece{
+    background-image: url(/assets/pieces/captured/captured-pieces.png);
+    background-repeat: no-repeat;
+    background-size: 68.3rem 61.1rem;
+    display: inline-block;
+}
+
+.pawn-1-black{
+    background-position: 0rem -59.4rem;
+
+    height: 1.7rem;
+    width: 1.3rem;
+}
+
+.pawn-2-black{
+    background-position: 0rem -56.9rem;
+
+    height: 1.7rem;
+    width: 2rem;
+}
+
+.pawn-3-black{
+    background-position: 0rem -54.4rem;
+
+    height: 1.7rem;
+    width: 2.7rem;
+}
+
+.pawn-4-black{
+    background-position: 0rem -51.9rem;
+
+    height: 1.7rem;
+    width: 3.4rem;
+}
+
+.pawn-5-black{
+    background-position: 0rem -49.4rem;
+
+    height: 1.7rem;
+    width: 4.1rem;
+}
+
+.bishop-1-black{
+    background-position: -6.7rem -44.3rem;
+
+    height: 1.8rem;
+    width: 1.5rem;
+}
+
+.bishop-2-black{
+    background-position: -6.7rem -41.7rem;
+
+    height: 1.9rem;
+    width: 2.3rem;
+}
+
+.knight-1-black{
+    background-position: -9.5rem -44.2rem;
+
+    height: 1.9rem;
+    width: 1.6rem;
+}
+
+.knight-2-black{
+    background-position: -9.5rem -41.7rem;
+
+    height: 1.9rem;
+    width: 2.3rem;
+}
+
+.rook-1-black{
+    background-position: -12rem -44.4rem;
+
+    height: 1.7rem;
+    width: 1.5rem;
+}
+
+.rook-2-black{
+    background-position: -12rem -41.9rem;
+
+    height: 1.7rem;
+    width: 2.3rem;
+}
+
+.queen-1-black{
+    background-position: -14.5rem -41.7rem;
+
+    height: 1.9rem;
+    width: 1.8rem;
+}
+
+.pawn-1-white{
+    background-position: -36rem -59.4rem;
+
+    height: 1.7rem;
+    width: 1.3rem;
+}
+
+.pawn-2-white{
+    background-position: -36rem -56.9rem;
+
+    height: 1.7rem;
+    width: 2rem;
+}
+
+.pawn-3-white{
+    background-position: -36rem -54.4rem;
+
+    height: 1.7rem;
+    width: 2.7rem;
+}
+
+.pawn-4-white{
+    background-position: -36rem -51.9rem;
+
+    height: 1.7rem;
+    width: 3.4rem;
+}
+
+.pawn-5-white{
+    background-position: -36rem -49.4rem;
+
+    height: 1.7rem;
+    width: 4.1rem;
+}
+
+.bishop-1-white{
+    background-position: -42.7rem -44.3rem;
+
+    height: 1.8rem;
+    width: 1.5rem;
+}
+
+.bishop-2-white{
+    background-position: -42.7rem -41.7rem;
+
+    height: 1.9rem;
+    width: 2.3rem;
+}
+
+.knight-1-white{
+    background-position: -45.5rem -44.2rem;
+
+    height: 1.9rem;
+    width: 1.6rem;
+}
+
+.knight-2-white{
+    background-position: -45.5rem -41.7rem;
+
+    height: 1.9rem;
+    width: 2.3rem;
+}
+
+.rook-1-white{
+    background-position: -48rem -44.4rem;
+
+    height: 1.7rem;
+    width: 1.5rem;
+}
+
+.rook-2-white{
+    background-position: -48rem -41.9rem;
+
+    height: 1.7rem;
+    width: 2.3rem;
+}
+
+.queen-1-white{
+    background-position: -50.4rem -41.7rem;
+
+    height: 1.9rem;
+    width: 1.8rem;
+}

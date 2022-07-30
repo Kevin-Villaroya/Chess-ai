@@ -3,7 +3,9 @@
 
 <head>
   <%- include('../partials/head'); %>
-  <link href="/css/chess_style.css" rel="stylesheet" type="text/css">
+  <link href="/css/chess/chess_style.css" rel="stylesheet" type="text/css">
+  <link href="/css/chess/chess_player_style.css" rel="stylesheet" type="text/css">
+  <link href="/css/chess/game_over.css" rel="stylesheet" type="text/css">
   <script src="/js/utils.js"></script>
 </head>
 
@@ -15,7 +17,16 @@
   </header>
 
   <main>
-    <%- include('../partials/chess'); %>
+    
+    <div class="chess-game-container">
+      <%- include('../partials/chess/game_over_local'); %>
+      
+      <%- include('../partials/chess/player_score_2'); %>
+    
+      <%- include('../partials/chess/chess'); %>
+
+      <%- include('../partials/chess/player_score_1'); %>
+    </div>
   </main>
 
 </body>

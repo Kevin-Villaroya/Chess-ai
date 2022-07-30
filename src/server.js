@@ -10,6 +10,7 @@ const RoomManager = require('./chess/controller/RoomManager');
 
 const routes = require('./routes');
 const chessRoutes = require('./chess/routes');
+const apiRoutes = require('./routesApi');
 
 app.use(cors());
 app.use(bodyParser.json())
@@ -17,6 +18,7 @@ app.use(bodyParser.urlencoded({extended:true}))
 
 app.use("/", routes);
 app.use("/play", chessRoutes);
+app.use("/api", apiRoutes);
 
 app.set('view engine', 'ejs');
 app.use(express.static('public'));

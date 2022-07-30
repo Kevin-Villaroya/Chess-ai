@@ -16,6 +16,8 @@ module.exports = class Chess {
     this.player1 = player1;
     if(this.type != 'local'){
       this.player2 = player2;
+    }else{
+      this.player2 = player1;
     }
 
     this.initGame();
@@ -103,21 +105,23 @@ module.exports = class Chess {
     this.player1.socket.emit('startGame', {
       pieces: this.getDataPieces(),
       colorPlayer: this.player1.color,
-      colorTurn: this.colorTurn
+      colorTurn: this.colorTurn,
+      player1: this.player1.data(),
+      player2: this.player2.data()
     });
 
     if(this.type != 'local'){
       this.player2.socket.emit('startGame', {
         pieces: this.pieces,
         colorPlayer: this.player2.color,
-        colorTurn: this.colorTurn
+        colorTurn: this.colorTurn,
+        player1: this.player1.data(),
+        player2: this.player2.data()
       });
     }
   }
 
   sendGameState(){
-    this.setAllPossibleMoves();
-
     let gameState = {
       pieces: this.getDataPieces(),
       colorTurn: this.colorTurn,
@@ -179,10 +183,8 @@ module.exports = class Chess {
   }
 
   verifyIfGameOver(){
-    let gameOver = true;
-
     for(let piece of this.pieces){
-      if(piece.color != this.colorTurn){
+      if(piece.color == this.colorTurn){
         if(piece.moves.length > 0){
           return false;
         }
@@ -229,14 +231,19 @@ module.exports = class Chess {
           this.pieces.splice(this.pieces.indexOf(pieceToRemove), 1);
         }
 
+        this.changeTurn();
+        this.setAllPossibleMoves();
+
         let gameOver = this.verifyIfGameOver();
 
         if(gameOver){
-          console.log('Game Over', this.colorTurn);
+          this.changeTurn();
+          
           this.winner = this.colorTurn;
+
+          this.sendGameState();
           this.sendGameOver();
         }else{
-          this.changeTurn();
           this.sendGameState();
         }
       }

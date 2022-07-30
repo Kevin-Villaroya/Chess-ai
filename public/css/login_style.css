@@ -1,0 +1,153 @@
+main{
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-container{
+    width: 80%;
+    height: fit-content;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    background-color: #8b7f7f63;
+
+    padding: 30px;
+
+    border-radius: 10px;
+}
+
+.login-title-container{
+    width: 80%;
+    height: fit-content;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    margin: 20px;
+}
+
+.login-title{
+    width: 80%;
+    height: 100%;
+
+    font-size: 25px;
+    font-weight: bold;
+
+    color:rgb(157, 170, 160);
+}
+
+.login-title:hover{
+    cursor: pointer;
+    color: rgb(200, 207, 202);
+}
+
+#signin-container, #signup-container{
+    width: 100%;
+    height: 100%;
+
+    display: none;
+}
+
+.login-form-container{
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
+    margin-top : 60px;
+}
+
+.login-subtitle{
+    font-size: 20px;
+    font-style: italic;
+    color: #fff;
+}
+
+.login-input{
+    width: 100%;
+
+    border-left: 0px;
+    border-right: 0px;
+    border-top: 0px;
+
+    background-color: transparent;
+
+    padding-bottom: 3px;
+
+    height: 20px;
+
+    color : white;
+    font-size : 20px;
+
+    margin: 20px;
+}
+    
+
+.login-input::placeholder{
+    font-size: 15px;
+    color: rgb(201, 182, 182);
+
+    margin-bottom: 0;
+}
+
+.login-input:hover{
+    outline: none;
+    border-color: black;
+}
+
+.login-input:focus{
+    outline: none;
+    caret-color: white;
+    border-color: black;
+}
+
+.confirm-sign{
+    margin : 40px;
+
+    width: 100%;
+    height: 50px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 20px;
+    border: 0px;
+
+    font-size: 20px;
+}
+
+.confirm-sign:hover{
+    background-color: rgb(9, 201, 57);
+    color: white;
+    cursor: pointer;
+}
+
+.selected-container{
+    display: block !important;
+}
+
+.selected-selector{
+    color : rgb(15, 196, 60) !important;
+    border-bottom: 2px solid rgb(9, 145, 43);
+}
+
+.alert{
+    color : rgb(253, 61, 61);
+    font-size : 1.3em;
+    font-weight : bold;
+}

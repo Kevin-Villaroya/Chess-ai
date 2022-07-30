@@ -33,6 +33,7 @@ main{
     font-family: modern-font;
     align-content: center;
     text-align: center;
+    align-items: center;
 }
 
 .main-title{

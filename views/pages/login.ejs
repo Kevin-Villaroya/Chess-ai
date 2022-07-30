@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head'); %>
+
+    <link rel="stylesheet" type="text/css" href="/css/login_style.css">
+    <link rel="stylesheet" href="/css/jsuites.css" type="text/css" />
+</head>
+
+<body>
+
+  <header>
+    <%- include('../partials/headerLeft'); %>
+  </header>
+
+  <main>
+    <div class = "login-container">
+
+        <div class = "login-title-container">
+            <span id = "signin-selector" class = "login-title selected-selector" onclick = "toggleSign('signin-selector')" >Sign in</span>
+            <span id = "signup-selector" class = "login-title" onclick = "toggleSign('signup-selector')">Sign up</span>
+        </div>
+
+        <div id = "signin-container" class = "selected-container">
+            <span class = "login-subtitle">Welcome back to Chess AI</span>
+
+            <div class = "login-form-container">
+                <input class = "login-input" type="text" name="nickname" placeholder="Email or nickname">
+                <input class = "login-input" type="password" name="password" placeholder="Password">
+
+                <button class = "confirm-sign" onclick = "login()">Login</button>
+            </div>
+        </div>
+
+        <div id = "signup-container">
+            <span class = "login-subtitle">Enjoy the Chess AI experience</span>
+
+            <div class = "login-form-container">
+                <input class = "login-input" type="text" id="email" placeholder="Email">
+                <input class = "login-input" type="text" id="nickname" placeholder="Nickname">
+
+                <div id="dropdown"></div>
+                
+                <input class = "login-input" type="password" id="password" placeholder="Password">
+                <input class = "login-input" type="password" id="confirm-password" placeholder="Confirm password">
+
+                <button class = "confirm-sign" onclick = "register()" >Register</button>
+            </div>
+        </div>
+
+        <span id = "alert" class = "alert"></span>
+    </div>
+
+
+  </main>
+
+  <script src="https://bossanova.uk/jsuites/v3/jsuites.js"></script>
+  <script type="text/javascript" src="/js/login.js"></script>
+
+</body>
+
+</html>
