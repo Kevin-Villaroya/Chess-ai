@@ -14,7 +14,7 @@
   <main>
     <%- include('../partials/title'); %>
 
-    <% if( locals.nickname) { %>
+    <% if( locals.player) { %>
       <div class = "menu-containers">
         <div class = "row-menu-containers">
 
@@ -30,23 +30,20 @@
         </div>
         
       </div>
+    
     <% }else{ %>
       <h1 class = "main-title"> Welcome, to Chess AI </h1>
-
-      <span>
-        GO connect yourself
-      </span>
     <% } %>
 
   </main>
 
-  <% if( locals.nickname) { %>
+  <% if( locals.player && locals.player.nickname != 'guest' ) { %>
     <%- include('../partials/headerRight'); %>
   <% } %>
 </body>
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="/js/index.js"></script>
-<script src="/js/utils.js"></script>
+<%- include('../partials/commonJs'); %>
 
 </html>

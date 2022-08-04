@@ -1,13 +1,23 @@
 <div class = "player_score_container">
-    <img src = "/assets/temporary/pentheos-account.png" class = "player_score_image">
+    <img src = "/assets/icone/player/<%= locals.player1.icone %>.png" class = "player_score_image">
 
     <div class = "player-score-column-container">
 
         <div class = "player-score-row-container">
-            <span>Pentheos</span>
-            <span>(Player 765)</span>
+            <%if (locals.player1){ %>
+                <span class = "player_nickname"><%= locals.player1.nickname %></span>
+                <span>(<%= locals.player1.type %> <%= locals.player1.elo %>)</span>
+            <% }else{ %>
+                <span class = "player_nickname">Guest</span>
+                <span>(Player ?)</span>
+            <% } %>
 
-            <img src = "/assets/temporary/flag.png" class = "player_score_flag">
+
+            <%if (locals.player1.country != "default"){ %>
+                <img src = 'https://countryflagsapi.com/png/<%= locals.player1.country %>' class = "player_score_flag">
+            <% }else{ %>
+                <img src = '/assets/icone/flag/default.png' class = "player_score_flag">
+            <% } %>
         </div>
 
         <div class = "player-score-row-container">
@@ -25,11 +35,5 @@
             <span>+5</span>
         </div>
         
-    </div>
-
-    
-
-    
-
-    
+    </div>    
 </div>

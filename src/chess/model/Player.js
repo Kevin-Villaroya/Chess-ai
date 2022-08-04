@@ -1,12 +1,21 @@
 module.exports = class Player{
   constructor(id, socket){
-    this.id = id; // id of the player in database
+    this.id = id;
     this.socket = socket;
     this.idRoom = null;
     this.elo = "600";
 
-    this.icone = "https://imgs.search.brave.com/wORNSfxDwo61k7YcRGetTHadz-ymQM1AtNaIqpURPus/rs:fit:1200:1200:1/g:ce/aHR0cHM6Ly9wcmV2/aWV3LnJlZGQuaXQv/MjRudjJ3d2RtMWsz/MS5qcGc_YXV0bz13/ZWJwJnM9YjY3NTgy/OTdmOGE2NjZjMTgz/MTE5YzAyYzMwNGE0/MjkyNjdjMTI5ZA";
-    this.flag = "https://imgs.search.brave.com/dSAbbarvdjtLJjWVLhydQCknwVVLlggOhTRavonnTXU/rs:fit:1200:1200:1/g:ce/aHR0cDovL3d3dy5h/cGFydG1lbnRiYXJj/ZWxvbmEuY29tL2Js/b2cvd3AtY29udGVu/dC91cGxvYWRzLzIw/MTUvMDcvQ2F0YWxh/bi1GbGFnLnBuZw";
+    this.icone = "default";
+    this.country = "default"
+  }
+
+  initByDatabase(data){
+    this.email = data.email;
+    this.nickname = data.nickname;
+    this.elo = data.elo;
+    this.country = data.country;
+    this.icone = data.icone;
+    this.id = data.id;
   }
 
   enterInRoom(idRoom){
@@ -34,11 +43,11 @@ module.exports = class Player{
   }
 
   getName(){
-    if(this.name == undefined){
+    if(this.nickname == undefined){
       return 'guest';
     }
-    //TODO: get name from database
-    return this.name;
+
+    return this.nickname;
   }
 
   getSocket(){
@@ -50,14 +59,26 @@ module.exports = class Player{
   }
 
   data(){
-    return {
-      id: this.id,
-      name: this.getName(),
-      type: this.getType(),
-      elo: this.elo,
-      idRoom: this.getIdRoom(),
-      icone: this.icone,
-      flag: this.flag
+    if(this.getType() == 'guest'){
+      return {
+        id: this.id,
+        nickname: this.getName(),
+        type: 'player',
+        elo: '?',
+        idRoom: this.getIdRoom(),
+        icone: this.icone,
+        country: this.country
+      }
+    }else{
+      return {
+        id: this.id,
+        nickname: this.getName(),
+        type: this.getType(),
+        elo: this.elo,
+        idRoom: this.getIdRoom(),
+        icone: this.icone,
+        country: this.country
+      }
     }
   }
 }

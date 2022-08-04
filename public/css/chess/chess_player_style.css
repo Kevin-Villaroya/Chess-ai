@@ -49,6 +49,16 @@
     aspect-ratio: 1;
 }
 
+.player_nickname{
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-right : 3px;
+    margin-top : 0px;
+    padding: 0px;
+    display: inline-block;
+    line-height: 0px;
+}
+
 /* CAPTURED PIECES */
 
 .captured-piece{

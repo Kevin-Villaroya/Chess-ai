@@ -1,13 +1,23 @@
 <div class = "player_score_container">
-    <img src = {{player2_icone}} class = "player_score_image">
+    <img src = "/assets/icone/player/<%= locals.player2.icone %>.png" class = "player_score_image">
 
     <div class = "player-score-column-container">
 
         <div class = "player-score-row-container">
-            <span>{{player2_name}}</span>
-            <span>({{player2_type}} {{player2_elo}})</span>
+            <%if (locals.player2){ %>
+                <span class = "player_nickname"><%= locals.player2.nickname %></span>
+                <span>(<%= locals.player2.type %> <%= locals.player2.elo %>)</span>
+            <% }else{ %>
+                <span class = "player_nickname">Guest</span>
+                <span>(Player ?)</span>
+            <% } %>
 
-            <img src = {{player2_flag}} class = "player_score_flag">
+
+            <%if (locals.player2.country != "default"){ %>
+                <img src = 'https://countryflagsapi.com/png/<%= locals.player2.country %>' class = "player_score_flag">
+            <% }else{ %>
+                <img src = '/assets/icone/flag/default.png' class = "player_score_flag">
+            <% } %>
         </div>
 
         <div class = "player-score-row-container">

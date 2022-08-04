@@ -1,8 +1,6 @@
 const path = require('path')
 
-require('dotenv').config({path:__dirname+'../../env/.local.env'});
-
-console.log(process.env.PORT);
+require('dotenv').config({path:__dirname+'/../env/.local.env'});
 
 const server = require('./server');
 

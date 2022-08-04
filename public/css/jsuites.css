@@ -1143,7 +1143,7 @@ div[data-before]:before {
 .jdropdown-default .jdropdown-header
 {
     border:0px;
-    border-bottom : 2px solid #ada5a563;
+    border-bottom : 2px solid white;
     padding-right:16px;
 }
 

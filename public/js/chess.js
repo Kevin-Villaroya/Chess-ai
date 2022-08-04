@@ -107,10 +107,10 @@ function initSquareEvent(){
 
 /** =========================================  INTERACTION FUNCTIONS  ==================================================== **/
 function toggleGameOverAlert(){
-  if(document.getElementById("game-over").style.display == "block" || document.getElementById("game-over").style.display == ""){
+  if(document.getElementById("game-over").style.display == "flex" || document.getElementById("game-over").style.display == ""){
     document.getElementById("game-over").style.display = "none";
   }else{
-    document.getElementById("game-over").style.display = "block";
+    document.getElementById("game-over").style.display = "flex";
   }
 }
 
@@ -226,6 +226,7 @@ function removePiece(squareBoard){
 }
 
 function getImageOfPiece(type, color){
+  type = type.toLowerCase();
   var render = "/assets/pieces/" + color + '_' + type + '.png';
 
   return render;

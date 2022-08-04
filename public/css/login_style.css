@@ -8,6 +8,13 @@ main{
     align-items: center;
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active  {
+  -webkit-box-shadow: 0 0 0 30px #554f4f inset !important;
+}
+
 .login-container{
     width: 80%;
     height: fit-content;
@@ -17,7 +24,7 @@ main{
     justify-content: flex-start;
     align-items: center;
 
-    background-color: #8b7f7f63;
+    background-color: #554f4f;
 
     padding: 30px;
 
@@ -83,8 +90,6 @@ main{
     border-right: 0px;
     border-top: 0px;
 
-    background-color: transparent;
-
     padding-bottom: 3px;
 
     height: 20px;
@@ -93,6 +98,9 @@ main{
     font-size : 20px;
 
     margin: 20px;
+
+    border-bottom : 2px solid white;
+    background-color: #554f4f ;
 }
     
 

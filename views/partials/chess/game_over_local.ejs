@@ -4,7 +4,12 @@
         
         <span class = "game-over-title">The game is over</span>
 
-        <img src = "/assets/temporary/pentheos-account.png" class = "game-over-account">
+        <%if (locals.player.country != "default"){ %>
+            <img src = '/assets/icone/player/<%= locals.player.icone %>.png' class = "game-over-account">
+        <% }else{ %>
+            <img src = '/assets/icone/flag/default.png' class = "game-over-account">
+        <% } %>
+
         <span class = "game-over-winner-text">The color <span class = "game-over-winner-color">BLACK</span> win !</span>
     </div>
 </div>

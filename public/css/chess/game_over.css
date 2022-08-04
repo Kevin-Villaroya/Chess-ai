@@ -14,7 +14,8 @@
 
     animation: fadeIn 2s;
 
-    display: none;
+    display: flex;
+    justify-content: center;
 }
 
 .game-over-container{
@@ -23,16 +24,13 @@
     justify-content: center;
     align-items: center;
 
-    height: 600px;
-    width: 400px;
+    height: 80%;
 
-    left: 40%;
-    top: 25%;
+    aspect-ratio: 1 / 1.5;
 
-    background-image: url('/assets/background/game-over.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    left: auto;
+    right: auto;
+    top: 10%;
 
     display: flex;
     flex-direction: column;
@@ -42,6 +40,8 @@
     position: absolute;
 
     border-radius: 10px;
+
+    background-color: wheat;
 }
 
 .game-over-cross{
@@ -52,10 +52,12 @@
     position: absolute;
     right: 15px;
     top : 15px;
+
+    z-index: 1;
 }
 
 .game-over-cross:hover{
-    background-color: rgb(46, 224, 100);
+    background-color: rgb(180, 94, 13);
     cursor: pointer;
 }
 
@@ -67,6 +69,13 @@
 
     margin: 30px;
     margin-bottom: 150px;
+
+    background-color: rgb(15, 146, 54);
+    padding: 10px;
+
+    -webkit-clip-path: polygon(0 1%, 72% 0, 88% 100%, 0 100%);
+    clip-path: ellipse(73% 82% at 50% 18%);
+
 }
 
 .game-over-account{
