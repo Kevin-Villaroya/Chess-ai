@@ -66,6 +66,13 @@
     background-repeat: no-repeat;
     background-size: 68.3rem 61.1rem;
     display: inline-block;
+    margin-left : 3px;
+    margin-right : 3px;
+}
+
+.captured-score{
+    font-weight: 600;
+    font-size: 1.2em;
 }
 
 .pawn-1-black{
@@ -101,6 +108,27 @@
 
     height: 1.7rem;
     width: 4.1rem;
+}
+
+.pawn-6-black{
+    background-position: 0rem -46.9rem;
+
+    height: 1.7rem;
+    width: 4.8rem;
+}
+
+.pawn-7-black{
+    background-position: 0rem -44.4rem;
+
+    height: 1.7rem;
+    width: 5.5rem;
+}
+
+.pawn-8-black{
+    background-position: 0rem -31.9rem;
+
+    height: 1.7rem;
+    width: 6.2rem;
 }
 
 .bishop-1-black{
@@ -185,6 +213,27 @@
 
     height: 1.7rem;
     width: 4.1rem;
+}
+
+.pawn-6-white{
+    background-position: -36rem -46.9rem;
+
+    height: 1.7rem;
+    width: 4.9rem;
+}
+
+.pawn-7-white{
+    background-position: -36rem -44.4rem;
+
+    height: 1.7rem;
+    width: 5.6rem;
+}
+
+.pawn-8-white{
+    background-position: -36rem -41.9rem;
+
+    height: 1.7rem;
+    width: 6.3rem;
 }
 
 .bishop-1-white{

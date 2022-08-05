@@ -14,7 +14,7 @@
   <main>
     <%- include('../partials/title'); %>
 
-    <% if( locals.player) { %>
+    <% if( locals.player && locals.player.nickname != 'guest' ) { %>
       <div class = "menu-containers">
         <div class = "row-menu-containers">
 

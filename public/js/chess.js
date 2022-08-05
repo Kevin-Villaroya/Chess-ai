@@ -37,6 +37,10 @@ async function enterRoom(){
     displayPieces(pieces);
     listenGameSate();
     listenGameOver();
+
+    if(colorPlayer != "white"){
+      rotateBoard();
+    }
   });
 }
 
@@ -55,8 +59,13 @@ function listenGameSate(){
 
     displayPieces(pieces);
     displayMovements([]);
-  }
-  );
+
+    if(getCookie('type') == 'local'){
+      rotateBoard();
+    }
+
+    setCapturedPieces();
+  });
 }
 
 function listenGameOver(){
@@ -147,6 +156,114 @@ function getPiece(idSquare){
     }
   }
   return null;
+}
+
+function setCapturedPieces(){
+  let whitePlayer;
+  let blackPlayer;
+
+  whitePieces = [];
+  blackPieces = [];
+
+  if(colorPlayer == 'white'){
+    whitePlayer = 'player1';
+    blackPlayer = 'player2';
+  }else{
+    whitePlayer = 'player2';
+    blackPlayer = 'player1';
+  }
+
+  for(let piece of pieces){
+    piece.type = piece.type.toLowerCase();
+
+    if(piece.color == 'white'){
+      if(whitePieces[piece.type] == undefined){
+        whitePieces[piece.type] = 0;
+      }
+      whitePieces[piece.type] += 1;
+    }else{
+      if(blackPieces[piece.type] == undefined){
+        blackPieces[piece.type] = 0;
+      }
+      blackPieces[piece.type] += 1;
+    }
+  }
+
+  displayEatedPieces(whitePlayer, 'white', blackPieces);
+  displayEatedPieces(blackPlayer, 'black', whitePieces);
+
+  displayScore(whitePlayer, blackPlayer, whitePieces, blackPieces);
+}
+
+function displayEatedPieces(numberPlayer, colorPlayer, piecesOnBoard){
+  let colorAdversary = colorPlayer == 'white' ? 'black' : 'white';
+
+  var types = ['rook','bishop', 'knight', 'queen', 'pawn'];
+  var quantity = [2, 2, 2, 1, 8];
+
+  for(let i = 0; i < types.length; i++){
+    let typeElement = types[i];
+
+    if(piecesOnBoard[typeElement] == undefined){
+      piecesOnBoard[typeElement] = 0;
+    }
+
+    let elementsEated = quantity[i] - piecesOnBoard[typeElement];
+
+    if(elementsEated > 0){
+      let idElement = numberPlayer + '-captured-' + typeElement;
+      let element = document.getElementById(idElement);
+      element.classList = 'captured-piece';
+  
+      let elementClass = typeElement + '-' + elementsEated + '-' + colorAdversary;
+      element.classList.add(elementClass);
+    }
+  }
+}
+
+function displayScore(whitePlayer, blackPlayer, whitePieces, blackPieces){
+  var types = ['rook','bishop', 'knight', 'queen', 'pawn'];
+  var quantity = [2, 2, 2, 1, 8];
+  var valuePiece = [5, 3, 3, 9, 1];
+
+  let whiteScore = 0;
+  let blackScore = 0;
+
+  for(let i = 0; i < types.length; i++){
+    let typeElement = types[i];
+    let whiteElementEated = quantity[i] - whitePieces[typeElement];
+    let blackElementEated = quantity[i] - blackPieces[typeElement];
+
+    whiteScore += blackElementEated * valuePiece[i];
+    blackScore += whiteElementEated * valuePiece[i];
+  }
+
+  let player = null;
+
+  if(whiteScore > blackScore){
+    player = whitePlayer;
+    score = whiteScore - blackScore;
+  }else if(blackScore > whiteScore){
+    player = blackPlayer;
+    score = blackScore - whiteScore;
+  }
+
+  document.getElementById(whitePlayer + '-captured-score').innerHTML = '';
+  document.getElementById(blackPlayer + '-captured-score').innerHTML = '';
+
+  if(player != null){
+    document.getElementById(player + '-captured-score').innerHTML = '+' + score;
+  }
+}
+
+function rotateBoard(){
+  let board = document.getElementById('chess-table');
+
+  if(window.getComputedStyle(board).flexDirection != 'column'){
+    board.style.flexDirection = 'column';
+  }else{
+    board.style.flexDirection = 'column-reverse';
+  }
 }
 
 /** =========================================  DISPLAY FUNCTIONS  ==================================================== **/

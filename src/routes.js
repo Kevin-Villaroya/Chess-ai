@@ -13,7 +13,10 @@ router.get('/', (req, res) => {
 router.get('/home', async (req, res) => {
   let user = await db.getUserBySession(req.sessionID);
   let player = new Player();
-  player.initByDatabase(user);
+
+  if(user != null || user != undefined){
+    player.initByDatabase(user);
+  }
 
   res.render('pages/index', {
     title: 'Home - Chess AI',
