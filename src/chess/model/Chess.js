@@ -5,6 +5,7 @@ const Queen = require('./piece/Queen');
 const King = require('./piece/King');
 const Pawn = require('./piece/Pawn');
 const { positionFromString } = require('./Position');
+const Position = require('./Position');
 
 /** ============================== INIT  ============================== **/
 
@@ -39,7 +40,7 @@ module.exports = class Chess {
     this.pieces.push(new Queen('white', 'd1'));
     this.pieces.push(new King('white', 'e1'));
 
-    this.pieces.push(new Pawn('white', 'a2'));
+    this.pieces.push(new Pawn('white', 'g6'));
     this.pieces.push(new Pawn('white', 'b2'));
     this.pieces.push(new Pawn('white', 'c2'));
     this.pieces.push(new Pawn('white', 'd2'));
@@ -158,6 +159,10 @@ module.exports = class Chess {
     this.player1.getSocket().on('move', (positionInit, positionFinal) => {
       this.movePiece(positionInit, positionFinal);
     });
+
+    this.player1.getSocket().on('changePawn', (posInit, posFinal, pieceType) => {
+      this.changePawn(posInit, posFinal, pieceType);
+    });
   }
 
   listenOnline(){
@@ -167,6 +172,14 @@ module.exports = class Chess {
 
     this.player2.getSocket().on('move', (data) => {
       this.movePiece(data.positionInit, data.positionFinal);
+    });
+
+    this.player1.getSocket().on('changePawn', (posInit, posFinal, pieceType) => {
+      this.changePawn(posInit, posFinal, pieceType);
+    });
+
+    this.player2.getSocket().on('changePawn', (posInit, posFinal, pieceType) => {
+      this.changePawn(posInit, posFinal, pieceType);
     });
   }
 
@@ -205,7 +218,7 @@ module.exports = class Chess {
 
     for(let piece of this.pieces){
       if(piece.color == this.colorTurn){
-        if(piece.type == 'King'){
+        if(piece.type == 'king'){
           king = piece;
         }else{
           piece.setPossibleMoves(this.pieces);
@@ -221,13 +234,13 @@ module.exports = class Chess {
   movePiece(positionInit, positionFinal){
     let piece = this.getPiece(positionFromString(positionInit));
 
-    if(piece != null && piece.color == this.colorTurn){
+    if(piece != null && piece != undefined && piece.color == this.colorTurn){
       this.unsetDoubleMoves();
 
       let pieceToRemove = this.getPiece(positionFromString(positionFinal));
 
       if(piece.move(positionFromString(positionFinal), this.pieces)){
-        if(pieceToRemove != null){
+        if(pieceToRemove != null && pieceToRemove != piece){
           this.pieces.splice(this.pieces.indexOf(pieceToRemove), 1);
         }
 
@@ -250,6 +263,22 @@ module.exports = class Chess {
     }
   }
 
+  changePawn(posInit, posFinal, pieceType){
+    let position = Position.positionFromString(posInit);
+      let positionFinal = Position.positionFromString(posFinal);
+      let piece = this.getPiece(position);
+
+      if(piece != undefined && piece.type == 'pawn' && piece.canMove(positionFinal) && positionFinal.isBorder()){
+        var newPiece = this.create(pieceType, piece.color, posInit);
+        newPiece.moves = piece.moves;
+
+        this.pieces.push(newPiece);
+        this.pieces.splice(this.pieces.indexOf(piece), 1);
+
+        this.movePiece(posInit, posFinal);
+      }
+  }
+
   changeTurn(){
     if(this.colorTurn == 'white'){
       this.colorTurn = 'black';
@@ -260,7 +289,7 @@ module.exports = class Chess {
 
   unsetDoubleMoves(){
     for(let piece of this.pieces){
-      if(piece.type == 'Pawn'){
+      if(piece.type == 'pawn'){
         if(piece.doubleMovementInThisTurn){
           piece.doubleMovementInThisTurn = false;
         }else if(piece.doubleMovement){
@@ -270,6 +299,30 @@ module.exports = class Chess {
     }
   }
 
-  
+  /** ============================== MECANICS  ============================== **/
 
+  create(type, color, pos){
+    switch(type){
+      case 'pawn':
+        return new Pawn(color, pos);
+        break;
+      case 'rook':
+        return new Rook(color, pos);
+        break;
+      case 'bishop':
+        return new Bishop(color, pos);
+        break;
+      case 'knight':
+        return new Knight(color, pos);
+        break;
+      case 'queen':
+        return new Queen(color, pos);
+        break;
+      case 'king':
+        return new King(color, pos);
+        break;
+      default:
+        return null;
+    }
+  }
 }

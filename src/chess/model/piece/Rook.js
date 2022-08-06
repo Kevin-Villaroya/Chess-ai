@@ -4,7 +4,7 @@ const Position = require('../Position');
 module.exports = class Rook extends Piece{
     constructor(color, position){
         super(color, position);
-        this.type = "Rook";
+        this.type = "rook";
         this.moved = false;
     }
 

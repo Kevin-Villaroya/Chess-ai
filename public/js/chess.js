@@ -16,8 +16,6 @@ var colorTurn;
 initChessBoard();
 enterRoom();
 
-toggleGameOverAlert();
-
 /** =========================================  SOCKET FUNCTIONS  ==================================================== **/
 
 async function enterRoom(){
@@ -44,9 +42,17 @@ async function enterRoom(){
   });
 }
 
-function makeMove(){  
+function makeMove(){
   if(idSquareSelected != null && idSquareMovementSelected != null){
-    socket.emit("move", idSquareSelected, idSquareMovementSelected);
+    if(getPiece(idSquareSelected).type == 'pawn' && isBorderSquare(idSquareMovementSelected)){
+      toggleChoosePiece(idSquareMovementSelected, (pieceType) => {
+        console.log(pieceType);
+
+        socket.emit("changePawn", idSquareSelected, idSquareMovementSelected, pieceType);
+      });
+    }else{
+      socket.emit("move", idSquareSelected, idSquareMovementSelected);
+    }
   }
 }
 
@@ -121,6 +127,26 @@ function toggleGameOverAlert(){
   }else{
     document.getElementById("game-over").style.display = "flex";
   }
+}
+
+async function toggleChoosePiece(idSquare, callback){
+  let element = document.getElementById('choosePiece');
+  let square = document.getElementById(idSquare);
+  let board = document.getElementById('chess-table');
+
+  let top = square.getBoundingClientRect().top - board.getBoundingClientRect().top - element.clientHeight / 4;
+  let left = square.getBoundingClientRect().left - board.getBoundingClientRect().left;
+
+  element.style.display = 'flex';
+  element.style.top = top + 'px';
+  element.style.left = left + 'px';
+
+  element.addEventListener('click', function handleClick(event) {
+    if(event.target.parentElement.id == 'choosePiece'){
+      element.style.display = 'none';
+      callback(event.target.name)
+    }
+  });
 }
 
 function selectSquare(idSquare){
@@ -367,4 +393,8 @@ function positionToKey(position){
   var number = position.column;
 
   return letter + number;
+}
+
+function isBorderSquare(idSquare){
+  return idSquare[1] == '1' || idSquare[1] == '8'
 }

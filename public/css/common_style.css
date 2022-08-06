@@ -61,7 +61,7 @@ main{
     top: 0;
 
     position: absolute;
-    z-index : 1;
+    z-index : 3;
 }
 
 #header-left.reduce-header-left{
@@ -209,7 +209,7 @@ main{
     background-color: #9c959556;
     padding: 10px;
     border-radius: 10px;
-    z-index : 1;
+    z-index : 3;
 }
 
 .retractable-header-container{

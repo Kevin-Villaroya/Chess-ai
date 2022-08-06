@@ -4,7 +4,7 @@ const Position = require('../Position');
 module.exports = class Bishop extends Piece{
     constructor(color, position){
         super(color, position);
-        this.type = "Bishop";
+        this.type = "bishop";
     }
 
     copy(){

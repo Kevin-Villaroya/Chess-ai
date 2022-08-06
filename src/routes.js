@@ -32,7 +32,9 @@ router.get('/login', (req, res) => {
 });
 
 router.get('/editAI', (req, res) => {
-  res.render("pages/editAI", {nickname : 'Pentheos'});
+  res.render("pages/editAI", {
+    title : 'edit AI'
+  });
 });
 
 module.exports = router;

@@ -1,16 +1,39 @@
 const { positionFromString } = require('../Position');
+const Position = require('../Position');
 
 module.exports = class Piece{
   constructor(color, position){
     this.color = color;
-    this.position = positionFromString(position);
+
+    if(position instanceof Position){
+      this.position = position;
+    }else{
+      this.position = positionFromString(position);
+    }
+    
     this.moves = new Array();
   }
 
   move(position){
-    this.position = position;
+    let canMove = this.canMove(position);
 
-    return true;
+    if(canMove){
+      this.position = position;
+    }
+
+    return canMove;
+  }
+
+  canMove(pos){
+    let canMove = false;
+
+    this.moves.forEach( (move) => {
+      if(move.equals(pos)){
+        canMove =  true;
+      }
+    });
+
+    return canMove;
   }
 
   getColor(){
@@ -97,7 +120,7 @@ module.exports = class Piece{
     let king;
 
     for(let piece of pieces){
-        if(piece.color == color && piece.type == "King"){
+        if(piece.color == color && piece.type == "king"){
           king = piece;
         }
     }

@@ -4,7 +4,7 @@ const Piece = require('./Piece');
 module.exports = class Pawn extends Piece{
     constructor(color, position){
         super(color, position);
-        this.type = "Pawn";
+        this.type = "pawn";
 
         this.moved = false;
 
@@ -120,19 +120,19 @@ module.exports = class Pawn extends Piece{
         let pieceRight = this.getPiece(pieces, positionRight);
 
         if(this.color == 'white'){
-            if(pieceLeft != null && pieceLeft.type == 'Pawn' && pieceLeft.color != this.color && pieceLeft.doubleMovement){
+            if(pieceLeft != null && pieceLeft.type == 'pawn' && pieceLeft.color != this.color && pieceLeft.doubleMovement){
                 this.addMove(new Position(positionLeft.row, positionLeft.column + 1));
             }
 
-            if(pieceRight != null && pieceRight.type == 'Pawn' && pieceRight.color != this.color && pieceRight.doubleMovement){
+            if(pieceRight != null && pieceRight.type == 'pawn' && pieceRight.color != this.color && pieceRight.doubleMovement){
                 this.addMove(new Position(positionRight.row, positionRight.column + 1));
             }
         }else{
-            if(pieceLeft != null && pieceLeft.type == 'Pawn' && pieceLeft.color != this.color && pieceLeft.doubleMovement){
+            if(pieceLeft != null && pieceLeft.type == 'pawn' && pieceLeft.color != this.color && pieceLeft.doubleMovement){
                 this.addMove(new Position(positionLeft.row, positionLeft.column - 1));
             }
 
-            if(pieceRight != null && pieceRight.type == 'Pawn' && pieceRight.color != this.color && pieceRight.doubleMovement){
+            if(pieceRight != null && pieceRight.type == 'pawn' && pieceRight.color != this.color && pieceRight.doubleMovement){
                 this.addMove(new Position(positionRight.row, positionRight.column - 1));
             }
         }
@@ -148,9 +148,9 @@ module.exports = class Pawn extends Piece{
         let eatLeft = this.position.row - position.row == 1 && pieceLeft;
         let eatRight = this.position.row - position.row == -1 && pieceRight;
 
-        if(eatLeft && pieceLeft != null && pieceLeft.type == 'Pawn' && pieceLeft.color != this.color && pieceLeft.doubleMovement){
+        if(eatLeft && pieceLeft != null && pieceLeft.type == 'pawn' && pieceLeft.color != this.color && pieceLeft.doubleMovement){
             return 'left';
-        }else if(eatRight &&pieceRight != null && pieceRight.type == 'Pawn' && pieceRight.color != this.color && pieceRight.doubleMovement){
+        }else if(eatRight &&pieceRight != null && pieceRight.type == 'pawn' && pieceRight.color != this.color && pieceRight.doubleMovement){
             return 'right';
         }
 

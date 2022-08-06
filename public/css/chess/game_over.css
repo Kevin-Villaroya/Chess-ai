@@ -14,7 +14,7 @@
 
     animation: fadeIn 2s;
 
-    display: flex;
+    display: none;
     justify-content: center;
 }
 

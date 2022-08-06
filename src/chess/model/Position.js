@@ -47,4 +47,8 @@ module.exports = class Position {
   outOfBounds(){
     return this.column < 1 || this.column > 8 || this.getRow() < 'a' || this.getRow() > 'h';
   }
+
+  isBorder(){
+    return this.getColumn() == 1 || this.getColumn() == 8;
+  }
 }
