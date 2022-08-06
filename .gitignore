@@ -8,7 +8,6 @@
 /todo
 todolist
 /env
-/db
 *.env
 npm-debug.log
 yarn-error.log
