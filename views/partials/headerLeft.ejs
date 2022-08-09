@@ -25,7 +25,7 @@
       </a>
     <% } %>
 
-    <a onclick="setTypeGame('local')" href = "/play/local" class = "nav-link-component">
+    <a href = "/play/local" class = "nav-link-component">
       <img class = "nav-sprite" src = "/assets/icone/nav-link/play-local.png"/>
       <span class = "nav-link-span"> Play Local </span>
     </a>
@@ -37,18 +37,18 @@
   <div class = "bottom-nav-links"> 
     <a class = "nav-link-component">
       <img class = "nav-sprite" src = "/assets/icone/nav-link/dark-mode.png"/>
-      <span class = "nav-link-span" href="/"> Light mode </span>
+      <span class = "nav-link-span"> Light mode </span>
     </a>
 
     <a id = "reduce-header-left-button" onclick="reduceHeaderLeft()" class = "nav-link-component">
       <img class = "nav-sprite" src = "/assets/icone/nav-link/reduce-left.png"/>
-      <span class = "nav-link-span" href="/"> Reduce </span>
+      <span class = "nav-link-span"> Reduce </span>
     </a>
 
     <% if( locals.player && locals.player.nickname != 'guest' ) { %>
-      <a class = "nav-link-component">
+      <a class = "nav-link-component" href="/disconnect">
         <img class = "nav-sprite" src = "/assets/icone/nav-link/disconnect.png"/>
-        <span class = "nav-link-span" href="/"> Disconnect </span>
+        <span class = "nav-link-span"> Disconnect </span>
       </a>
     <% } %>
   </div>

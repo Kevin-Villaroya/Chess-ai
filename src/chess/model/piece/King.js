@@ -86,7 +86,7 @@ module.exports = class King extends Piece{
         if(this.moved){
             return;
         }
-        
+
         let positionLeft = new Position(this.position.row - 1, this.position.column);
         let pieceLeft = this.getPiece(pieces, positionLeft);
 
@@ -111,7 +111,7 @@ module.exports = class King extends Piece{
             return;
         }
 
-        if(pieceLeft4 != null && pieceLeft4.type == "Rook" && pieceLeft4.color == this.color && !pieceLeft4.moved){
+        if(pieceLeft4 != null && pieceLeft4.type == "rook" && pieceLeft4.color == this.color && !pieceLeft4.moved){
             this.addMove(positionLeft2);
         }
     }
@@ -142,7 +142,7 @@ module.exports = class King extends Piece{
             return;
         }
 
-        if(pieceRight3 != null && pieceRight3.type == "Rook" && pieceRight3.color == this.color && !pieceRight3.moved){
+        if(pieceRight3 != null && pieceRight3.type == "rook" && pieceRight3.color == this.color && !pieceRight3.moved){
             this.addMove(positionRight2);
         }
     }

@@ -11,6 +11,7 @@ var pieces = new Array();
 var colorPlayer;
 var colorTurn;
 
+var typeGame = document.getElementById('typeGame').innerHTML;
 /** =========================================  INIT CALLS  ==================================================== **/
 
 initChessBoard();
@@ -18,8 +19,12 @@ enterRoom();
 
 /** =========================================  SOCKET FUNCTIONS  ==================================================== **/
 
+function setTypeGame(type){
+  setCookie("type", type);
+}
+
 async function enterRoom(){
-  socket.emit("play", getCookie('type'), getCookie('idPlayer'));
+  socket.emit("play", typeGame , getCookie('idPlayer'));
 
   socket.on("enterInRoom", (idRoom) => {
     setCookie('idRoom', idRoom);
@@ -28,9 +33,9 @@ async function enterRoom(){
   socket.on("startGame", (data) => {
     colorPlayer = data.colorPlayer;
     colorTurn = data.colorTurn;
-    pieces = data.pieces;
+    newPieces = data.pieces;
 
-    convertPiecesMoves();
+    pieces = convertPiecesMoves(newPieces);
 
     displayPieces(pieces);
     listenGameSate();
@@ -46,8 +51,6 @@ function makeMove(){
   if(idSquareSelected != null && idSquareMovementSelected != null){
     if(getPiece(idSquareSelected).type == 'pawn' && isBorderSquare(idSquareMovementSelected)){
       toggleChoosePiece(idSquareMovementSelected, (pieceType) => {
-        console.log(pieceType);
-
         socket.emit("changePawn", idSquareSelected, idSquareMovementSelected, pieceType);
       });
     }else{
@@ -56,21 +59,25 @@ function makeMove(){
   }
 }
 
-function listenGameSate(){
+async function listenGameSate(){
   socket.on("gameState", (data) => {
     colorTurn = data.colorTurn;
-    pieces = data.pieces;
+    let newPieces = data.pieces;
 
-    convertPiecesMoves();
+    newPieces = convertPiecesMoves(newPieces);
 
-    displayPieces(pieces);
-    displayMovements([]);
+    movePieces(data.posInit, data.posFinal, () => {
+      displayMovements([]);
 
-    if(getCookie('type') == 'local'){
-      rotateBoard();
-    }
-
-    setCapturedPieces();
+      if(typeGame == 'local'){
+        rotateBoard();
+      }
+  
+      setCapturedPieces();
+  
+      pieces = newPieces;
+      displayPieces(newPieces);
+    });
   });
 }
 
@@ -315,14 +322,50 @@ function displayPieces(pieces){
     }
   }
 
-
-  for(piece of pieces){
+  for(let piece of pieces){
     addPiece(piece.position, piece.type, piece.color);
   }
 }
 
-function displayMovements(movements){
+function movePieces(posInit, posFinal, callback){
+  pieceHtml = document.getElementById(posInit).getElementsByTagName('img')[0];
 
+  let start = Date.now();
+
+  pieceHtml.style.position = 'absolute';
+  pieceHtml.style.zIndex = 1000;
+
+  let finalSquare = document.getElementById(posFinal);
+  let initSquare = document.getElementById(posInit);
+
+  let top = pieceHtml.getBoundingClientRect().top - initSquare.getBoundingClientRect().top;
+  let left = pieceHtml.getBoundingClientRect().left - initSquare.getBoundingClientRect().left;
+
+  let topFinal = pieceHtml.getBoundingClientRect().top - finalSquare.getBoundingClientRect().top;
+  let leftFinal = pieceHtml.getBoundingClientRect().left - finalSquare.getBoundingClientRect().left;
+
+  let timer = setInterval(function() {
+    let timePassed = Date.now() - start;
+    let timeAnimation = 400;
+
+    let timePercentLeft = timePassed / timeAnimation;
+
+    if (timePercentLeft <= 1){
+      pieceHtml.style.top = top + ((top - topFinal) * timePercentLeft) + 'px';
+      pieceHtml.style.left = left + ((left - leftFinal) * timePercentLeft) + 'px';
+    }
+
+    if (timePercentLeft > 1.2){
+      clearInterval(timer);
+      pieceHtml.style.position = 'relative';
+      pieceHtml.style.left = '0px';
+      pieceHtml.style.top = '0px';
+      callback();
+    }
+  }, 20);
+}
+
+function displayMovements(movements){
   for(let i = 0; i < possibleMovements.length; i++){
     var square = document.getElementById(possibleMovements[i]);
 
@@ -375,17 +418,24 @@ function getImageOfPiece(type, color){
   return render;
 }
 
-function convertPiecesMoves(){
+function convertPiecesMoves(pieces){
+  let piecesSetted = [];
 
-  pieces.forEach(piece => {
+  for(let piece of pieces){
     let moves = new Array();
+    let pieceSetted = piece;
 
     piece.moves.forEach(move => {
       moves.push(positionToKey(move));
     });
-    piece.moves = moves;
-    piece.position = positionToKey(piece.position);
-  });
+
+    pieceSetted.moves = moves;
+    pieceSetted.position = positionToKey(piece.position);
+
+    piecesSetted.push(pieceSetted);
+  }
+
+  return piecesSetted;
 }
 
 function positionToKey(position){

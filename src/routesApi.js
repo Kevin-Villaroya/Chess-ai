@@ -3,8 +3,6 @@ let router = express.Router();;
 
 const Player = require('./chess/model/Player');
 
-const saltRounds = 10;
-
 var db = require('./dbAccess');
 
 /* ======================= UTILS ========================== */
@@ -16,8 +14,6 @@ function createErrorRequest(isSuccess, messageError){
 /* ====================== ROUTES ========================= */
 
 router.post('/login', (req, res) => {
-  let dataPlayer = null;
-
   db.getUser(req.body.id, req.body.password, (user) => {
     if(user != null){
       user.id = user._id;
@@ -33,17 +29,35 @@ router.post('/login', (req, res) => {
   });
 });
   
-router.post('/register', async (req, res) => {
+router.post('/register', (req, res) => {
+  console.log(req.body);
+
   let messageError = "";
   let password = req.body.password;
 
+  var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
   if(req.body.nickname == "" || req.body.email == "" || req.body.country == "" || password == ""){
     messageError = "Please fill all fields";
-  }else if(password.length < 6 || password.length > 20 && password.match(/\d+/g) && password.match(/[a-zA-Z]+/g) && password.match(/[^a-zA-Z0-9]+/g)){
-    messageError = "Password must be between 6 and 20 characters and must contain at least one number, one letter and one special character"
+  }else if(!req.body.email.match(mailformat)){
+    messageError = "Email is not valid";
+  }else if(password == ''){
+    messageError = 'Password is required';
+  }else if(password.length < 6 || password.length > 20){
+    messageError = 'Password must be between 6 and 20 characters';
+  }else if(!password.match(/\d+/g)){
+    messageError = 'Password must contain at least one number';
+  }else if(!password.match(/[a-zA-Z]+/g)){
+    messageError = 'Password must contain at least one letter';
+  }else if(!password.match(/[^a-zA-Z0-9]+/g)){
+    messageError = 'Password must contain at least one special character';
   }
 
-  let exist = await db.existUser(req.body.email, req.body.nickname, (exist) => {
+  console.log(messageError);
+  console.log(password);
+  console.log(password.length);
+
+  db.existUser(req.body.email, req.body.nickname, (exist) => {
     if(exist == "nickname" && messageError == ""){
       messageError = "Nickname already registered";
     }else if(exist == "email" && messageError == ""){
@@ -54,9 +68,9 @@ router.post('/register', async (req, res) => {
       req.body.icone = "default";
 
       db.addUser(req.body.email, req.body.nickname, req.body.country, req.body.password);
-      res.json(createErrorRequest(true, "Registration complete"));
+      res.redirect("/login/?error=" + 'Account created');
     }else{
-      res.json(createErrorRequest(false, messageError));
+      res.redirect("/login/?error=" + messageError + '&type=register');
     }
   });
 });

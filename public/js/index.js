@@ -1,10 +1,6 @@
 google.charts.load('current', {packages: ['corechart', 'line']});
 google.charts.setOnLoadCallback(drawBackgroundColor);
 
-function setTypeGame(type){
-  setCookie("type", type);
-}
-
 window.addEventListener('resize', function(event){
   drawBackgroundColor();
 });

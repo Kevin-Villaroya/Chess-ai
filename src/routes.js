@@ -27,8 +27,15 @@ router.get('/home', async (req, res) => {
 router.get('/login', (req, res) => {
   res.render('pages/login', {
     title: 'Login',
-    error: req.query.error
+    error: req.query.error,
+    type: req.query.type
   });
+});
+
+router.get('/disconnect', (req, res) => {
+  req.session.destroy();
+  
+  res.redirect('/home');
 });
 
 router.get('/editAI', (req, res) => {

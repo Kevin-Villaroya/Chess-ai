@@ -15,13 +15,9 @@ module.exports = class Piece{
   }
 
   move(position){
-    let canMove = this.canMove(position);
+    this.position = position;
 
-    if(canMove){
-      this.position = position;
-    }
-
-    return canMove;
+    return true;
   }
 
   canMove(pos){
@@ -77,8 +73,6 @@ module.exports = class Piece{
     }
   }
 
-  copy(){}
-
   verifyIfMovesAreValid(pieces){
     //verify if after the move of the piece, the king is in check
     let movesToDelete = new Array();
@@ -113,7 +107,7 @@ module.exports = class Piece{
 
     for(let move of movesToDelete){
       this.moves.splice(this.moves.indexOf(move), 1);
-    }  
+    }
   }
 
   inCheckMate(pieces, color){

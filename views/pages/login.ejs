@@ -37,21 +37,20 @@
             <span class = "login-subtitle">Enjoy the Chess AI experience</span>
 
             <div class = "login-form-container">
-                <input class = "login-input" type="text" id="email" placeholder="Email">
-                <input class = "login-input" type="text" id="nickname" placeholder="Nickname">
+                <input value = '' class = "login-input" type="text" name = "email" id="email" placeholder="Email">
+                <input value = '' class = "login-input" type="text" name = "nickname" id="nickname" placeholder="Nickname">
 
-                <div id="dropdown"></div>
-                
-                <input class = "login-input" type="password" id="password" placeholder="Password">
-                <input class = "login-input" type="password" id="confirm-password" placeholder="Confirm password">
+                <div id="dropdown" onclick="setCountry()"></div>
+                <input value = '' style="visibility: hidden; position : absolute;" id = "country" name = "country">
 
-                <button class = "confirm-sign" >Register</button>
+                <input value = '' class = "login-input" type="password" name="password" id="password" placeholder="Password">
+                <input value = '' class = "login-input" type="password" name="password-confirm" id="confirm-password" placeholder="Confirm password">
+
+                <input type = "submit" class = "confirm-sign" name = "submit" value= "Register">
             </div>
         </form>
 
-        <% if( error ) { %>
-            <span id = "alert" class = "alert"><%= error %></span>
-        <% } %>
+        <span id = "alert" class = "alert"> <% if( error ) { %> <%=error %> <% } %></span>
     </div>
 
 

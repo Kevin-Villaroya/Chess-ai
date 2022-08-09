@@ -1,5 +1,52 @@
 let jSuiteDropdown;
 
+document.getElementById('signup-container').addEventListener('submit', validate);
+
+function validate(){
+    let error = '';
+
+    var args = Array.prototype.slice.call(arguments);
+    var e = args[0];
+
+    if(document.getElementById('nickname').value == ''){
+        error += 'Nickname is required<br>';
+    }
+    
+    let mail = document.getElementById('email').value;
+    var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+    if(mail == ''){
+        error += 'Email is required<br>';
+    }else if(!mail.match(mailformat)){
+        error += 'Email is not valid<br>';
+    }
+
+    if(document.getElementById('password').value == ''){
+        error += 'Password is required';
+    }else if(document.getElementById('password').value.length < 6 || document.getElementById('password').value.length > 20){
+        error += 'Password must be between 6 and 20 characters';
+    }else if(!document.getElementById('password').value.match(/\d+/g)){
+        error += 'Password must contain at least one number';
+    }else if(!document.getElementById('password').value.match(/[a-zA-Z]+/g)){
+        error += 'Password must contain at least one letter';
+    }else if(!document.getElementById('password').value.match(/[^a-zA-Z0-9]+/g)){
+        error += 'Password must contain at least one special character';
+    }else if(document.getElementById('password').value != document.getElementById('confirm-password').value){
+        error += 'Passwords do not match';
+    }
+
+    if(document.getElementById('country').value == ''){
+        error += 'Country is required<br>';
+    }
+
+    if(error != ''){
+        e.preventDefault();
+        document.getElementById('alert').innerHTML = error;
+    }else{
+        return true;
+    }
+}
+
 function toggleSign(idElement){
     let selectorClicked;
     let selectorNotClicked;
@@ -26,6 +73,12 @@ function toggleSign(idElement){
 
     containerSelected.classList.add("selected-container");
     containerNotSelected.classList.remove("selected-container");
+}
+
+function setCountry(){
+    let country = document.getElementById("dropdown").value;
+
+    document.getElementById("country").value = country;
 }
 
 var countries = [

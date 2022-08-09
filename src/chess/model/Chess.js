@@ -31,7 +31,7 @@ module.exports = class Chess {
 
     this.setPlayerColors();
 
-    this.pieces.push(new Rook('white', 'a1'));
+    this.pieces.push(new Rook('white', 'a3'));
     this.pieces.push(new Rook('white', 'h1'));
     this.pieces.push(new Knight('white', 'b1'));
     this.pieces.push(new Knight('white', 'g1'));
@@ -40,7 +40,7 @@ module.exports = class Chess {
     this.pieces.push(new Queen('white', 'd1'));
     this.pieces.push(new King('white', 'e1'));
 
-    this.pieces.push(new Pawn('white', 'g6'));
+    this.pieces.push(new Pawn('white', 'a2:!'));
     this.pieces.push(new Pawn('white', 'b2'));
     this.pieces.push(new Pawn('white', 'c2'));
     this.pieces.push(new Pawn('white', 'd2'));
@@ -51,11 +51,11 @@ module.exports = class Chess {
 
     this.pieces.push(new Rook('black', 'a8'));
     this.pieces.push(new Rook('black', 'h8'));
-    this.pieces.push(new Knight('black', 'b8'));
+    this.pieces.push(new Knight('black', 'b5'));
     this.pieces.push(new Knight('black', 'g8'));
-    this.pieces.push(new Bishop('black', 'c8'));
+    this.pieces.push(new Bishop('black', 'e4'));
     this.pieces.push(new Bishop('black', 'f8'));
-    this.pieces.push(new Queen('black', 'd8'));
+    this.pieces.push(new Queen('black', 'b4'));
     this.pieces.push(new King('black', 'e8'));
 
     this.pieces.push(new Pawn('black', 'a7'));
@@ -122,8 +122,10 @@ module.exports = class Chess {
     }
   }
 
-  sendGameState(){
+  sendGameState(positionInit, positionFinal){
     let gameState = {
+      posInit: positionInit,
+      posFinal: positionFinal,
       pieces: this.getDataPieces(),
       colorTurn: this.colorTurn,
     }
@@ -234,7 +236,7 @@ module.exports = class Chess {
   movePiece(positionInit, positionFinal){
     let piece = this.getPiece(positionFromString(positionInit));
 
-    if(piece != null && piece != undefined && piece.color == this.colorTurn){
+    if(piece != null && piece != undefined && piece.color == this.colorTurn && piece.canMove(positionFromString(positionFinal))){
       this.unsetDoubleMoves();
 
       let pieceToRemove = this.getPiece(positionFromString(positionFinal));
@@ -254,10 +256,10 @@ module.exports = class Chess {
           
           this.winner = this.colorTurn;
 
-          this.sendGameState();
+          this.sendGameState(positionInit, positionFinal);
           this.sendGameOver();
         }else{
-          this.sendGameState();
+          this.sendGameState(positionInit, positionFinal);
         }
       }
     }
