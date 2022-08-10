@@ -110,6 +110,20 @@ module.exports = class Piece{
     }
   }
 
+  inCheck(pieces){
+    for(let piece of pieces){
+      if(piece.color != this.color){
+        for(let move of piece.moves){
+          if(move.equals(this.position)){
+            return true;
+          }
+        }
+      }
+    }
+
+    return false;
+  }
+
   inCheckMate(pieces, color){
     let king;
 

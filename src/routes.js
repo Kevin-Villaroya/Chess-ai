@@ -11,12 +11,14 @@ router.get('/', (req, res) => {
 });
 
 router.get('/home', async (req, res) => {
-  let user = await db.getUserBySession(req.sessionID);
+  let playerDB = await db.getUserBySession(req.sessionID);
   let player = new Player();
 
-  if(user != null || user != undefined){
-    player.initByDatabase(user);
+  if(playerDB != null || playerDB != undefined){
+    player.initByDatabase(playerDB);
   }
+
+  //console.log(player);
 
   res.render('pages/index', {
     title: 'Home - Chess AI',
@@ -38,10 +40,21 @@ router.get('/disconnect', (req, res) => {
   res.redirect('/home');
 });
 
-router.get('/editAI', (req, res) => {
-  res.render("pages/editAI", {
-    title : 'edit AI'
-  });
+router.get('/editAI', async (req, res) => {
+  let user = await db.getUserBySession(req.sessionID);
+  let player = new Player();
+
+  if(user != null || user != undefined){
+    player.initByDatabase(user);
+
+    res.render("pages/editAI", {
+      player: player.data(),
+      root: user.root,
+      title : 'edit AI'
+    });
+  }else{
+    res.redirect('/');
+  }
 });
 
 module.exports = router;

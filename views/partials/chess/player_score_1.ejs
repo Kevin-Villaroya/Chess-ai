@@ -1,4 +1,4 @@
-<div class = "player_score_container">
+<div class = "player_score_container" id = "player_score_container_1">
     <img src = "/assets/icone/player/<%= locals.player1.icone %>.png" class = "player_score_image">
 
     <div class = "player-score-column-container">
@@ -6,10 +6,10 @@
         <div class = "player-score-row-container">
             <%if (locals.player1){ %>
                 <span class = "player_nickname"><%= locals.player1.nickname %></span>
-                <span>(<%= locals.player1.type %> <%= locals.player1.elo %>)</span>
+                <span>(<%= locals.player1.elo %> test)</span>
             <% }else{ %>
                 <span class = "player_nickname">Guest</span>
-                <span>(Player ?)</span>
+                <span>(?)</span>
             <% } %>
 
 

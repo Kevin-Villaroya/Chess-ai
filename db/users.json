@@ -5,7 +5,32 @@
 		"password":"$2b$10$CTyJI54hKY6k/qf.DbetluMB9Symqwrtvw//j29TNcSll3Xw4P6p2",
 		"country":"fr",
 		"elo" : 600,
-		"icone": "default"
+		"icone": "default",
+		"root" : 
+		[
+			{
+				"name" : "My folder",
+				"type" : "folder",
+				"content" : 
+				[
+					{
+						"name" : "Variables",
+						"type" : "file",
+						"content" : "let i = 0; console.log(i);"
+					},
+					{
+						"name" : "Process",
+						"type" : "file",
+						"content" : "function add(a, b) { return a + b; }; console.log(add(1, 2));"
+					}
+				]
+			},
+			{
+				"name" : "My first ai",
+				"type" : "file",
+				"content" : "//WIP"
+			}
+		]
 	},
 	{
 		"email":"test@gmail.com",
@@ -13,6 +38,19 @@
 		"password":"$2b$10$NEwh9Wbg3b8h5qO3y8bIvOeBNj11yqMWE5FTAeCiQdCRhkdNI2xfq",
 		"country":"es",
 		"elo": 1200,
-		"icone":"default"
+		"icone":"default",
+		"root":
+		[
+			{
+				"name" : "My empty folder",
+				"type" : "folder",
+				"content" : []
+			},
+			{
+				"name" : "My second empty folder",
+				"type" : "folder",
+				"content" : []
+			}
+		]
 	}
 ]

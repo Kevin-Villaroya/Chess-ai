@@ -76,7 +76,15 @@ dbAccess.getUser = function getUser(id, password, callback){
       callback(null);
     }
   });
-} 
+}
+
+dbAccess.getUserById = async function (id){
+  let query = { _id : id };
+
+  let res = await db.collection('users').findOne(query);
+
+  return res;
+}
  
 dbAccess.addUser = function addUser(email, nickname, country, password){
   hashPassword(password, (hash) => {
@@ -86,7 +94,8 @@ dbAccess.addUser = function addUser(email, nickname, country, password){
       password: hash,
       country: country,
       elo: 600,
-      icone: 'default'
+      icone: 'default',
+      root : new Array()
     }
 
     db.collection('users').insertOne(user);
@@ -107,7 +116,8 @@ dbAccess.getUserBySession = async function (sessionID){
     return null;
   }
 
-  return session.session.player;
+  let user = await this.getUserById(session.session.playerId);
+  return user;
 }
 
 module.exports = dbAccess;

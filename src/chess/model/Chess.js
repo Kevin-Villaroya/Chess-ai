@@ -31,7 +31,7 @@ module.exports = class Chess {
 
     this.setPlayerColors();
 
-    this.pieces.push(new Rook('white', 'a3'));
+    this.pieces.push(new Rook('white', 'a1'));
     this.pieces.push(new Rook('white', 'h1'));
     this.pieces.push(new Knight('white', 'b1'));
     this.pieces.push(new Knight('white', 'g1'));
@@ -51,11 +51,11 @@ module.exports = class Chess {
 
     this.pieces.push(new Rook('black', 'a8'));
     this.pieces.push(new Rook('black', 'h8'));
-    this.pieces.push(new Knight('black', 'b5'));
+    this.pieces.push(new Knight('black', 'b8'));
     this.pieces.push(new Knight('black', 'g8'));
-    this.pieces.push(new Bishop('black', 'e4'));
+    this.pieces.push(new Bishop('black', 'c8'));
     this.pieces.push(new Bishop('black', 'f8'));
-    this.pieces.push(new Queen('black', 'b4'));
+    this.pieces.push(new Queen('black', 'd8'));
     this.pieces.push(new King('black', 'e8'));
 
     this.pieces.push(new Pawn('black', 'a7'));
@@ -198,15 +198,24 @@ module.exports = class Chess {
   }
 
   verifyIfGameOver(){
+    let king;
+
     for(let piece of this.pieces){
       if(piece.color == this.colorTurn){
         if(piece.moves.length > 0){
-          return false;
+          return null;
+        }
+        if(piece.type == 'king'){
+          king = piece;
         }
       }
     }
 
-    return true;
+    if(king.inCheck(this.pieces)){
+      return this.colorTurn == 'white' ? 'black' : 'white';
+    }else{
+      return 'pat';
+    }
   }
 
   setAllPossibleMoves(){
@@ -249,12 +258,10 @@ module.exports = class Chess {
         this.changeTurn();
         this.setAllPossibleMoves();
 
-        let gameOver = this.verifyIfGameOver();
+        let winner = this.verifyIfGameOver();
 
-        if(gameOver){
-          this.changeTurn();
-          
-          this.winner = this.colorTurn;
+        if(winner){     
+          this.winner = winner;
 
           this.sendGameState(positionInit, positionFinal);
           this.sendGameOver();

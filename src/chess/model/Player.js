@@ -35,7 +35,7 @@ module.exports = class Player{
   }
 
   getType(){
-    if(this.id == undefined || this.id < 0){
+    if(this.nickname == undefined){
       return 'guest';
     }else{
       return 'user';

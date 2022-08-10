@@ -21,7 +21,7 @@ router.post('/login', (req, res) => {
       let player = new Player();
       player.initByDatabase(user);
 
-      req.session.player = player;
+      req.session.playerId = user.id;
       res.redirect("/home");
     }else{
       res.redirect("/login/?error=" + 'Incorect password or id');

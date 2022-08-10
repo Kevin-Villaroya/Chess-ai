@@ -73,26 +73,45 @@ async function listenGameSate(){
         rotateBoard();
       }
   
-      setCapturedPieces();
-  
       pieces = newPieces;
       displayPieces(newPieces);
+
+      setCapturedPieces();
     });
   });
 }
 
 function listenGameOver(){
   socket.on("gameOver", (data) => {
-    
-    if(data.winner == "draw"){
-      document.getElementsByClassName("game-over-winner-text")[0].innerHTML = "It's a draw !";
+    let gameOverContainer = document.getElementById('game-over-container');
+    let gameOverText = document.getElementById('game-over-winner-text');
+
+    if(typeGame != 'local'){
+      if(data.winner == "pat"){
+        gameOverContainer.classList.add('pat-game-over');
+        gameOverText.innerHTML = "It's a draw !";
+      }else if(data.winner == colorPlayer){
+        gameOverContainer.classList.add('win-game-over');
+        gameOverText.innerHTML = "You win !";
+      }else{
+        gameOverContainer.classList.add('lose-game-over');
+        gameOverText.innerHTML = "You lose !";
+      }
     }else{
-      document.getElementsByClassName("game-over-winner-text")[0].innerHTML = "The winner is <span class = 'game-over-winner-color'>" + data.winner +  "</span> !";
+      if(data.winner == "pat"){
+        gameOverContainer.classList.add('pat-game-over');
+        gameOverText.innerHTML = "It's a draw !";
+      }else if(data.winner == "white"){
+        gameOverContainer.classList.add('white-game-over');
+        gameOverText.innerHTML = "White win !";
+      }else{
+        gameOverContainer.classList.add('black-game-over');
+        gameOverText.innerHTML = "Black win !";
+      }
     }
 
     toggleGameOverAlert();
-  }
-  );
+  });
 }
 
 /** =========================================  INIT FUNCTIONS  ==================================================== **/
@@ -129,10 +148,15 @@ function initSquareEvent(){
 
 /** =========================================  INTERACTION FUNCTIONS  ==================================================== **/
 function toggleGameOverAlert(){
+  if(document.getElementById('game-over').style.display == ""){
+    document.getElementById('game-over').style.display = 'none';
+  }
+
   if(document.getElementById("game-over").style.display == "flex" || document.getElementById("game-over").style.display == ""){
     document.getElementById("game-over").style.display = "none";
   }else{
     document.getElementById("game-over").style.display = "flex";
+    console.log("display");
   }
 }
 
@@ -291,11 +315,14 @@ function displayScore(whitePlayer, blackPlayer, whitePieces, blackPieces){
 
 function rotateBoard(){
   let board = document.getElementById('chess-table');
+  let playerScore = document.getElementById('chess-game-container');
 
   if(window.getComputedStyle(board).flexDirection != 'column'){
     board.style.flexDirection = 'column';
+    playerScore.style.flexDirection = 'column';
   }else{
     board.style.flexDirection = 'column-reverse';
+    playerScore.style.flexDirection = 'column-reverse';
   }
 }
 
@@ -346,7 +373,7 @@ function movePieces(posInit, posFinal, callback){
 
   let timer = setInterval(function() {
     let timePassed = Date.now() - start;
-    let timeAnimation = 400;
+    let timeAnimation = 300;
 
     let timePercentLeft = timePassed / timeAnimation;
 

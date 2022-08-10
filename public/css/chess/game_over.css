@@ -61,6 +61,52 @@
     cursor: pointer;
 }
 
+.pat-game-over{
+    background-color: rgba(177, 147, 147, 0.884);
+}
+
+.pat-game-over > .game-over-title{
+    background-color: rgba(0, 0, 0, 0.884);
+}
+
+.win-game-over{
+    background-color: rgba(83, 233, 64,  0.884);
+}
+
+.win-game-over > .game-over-title{
+    background-color: rgba(3, 154, 241, 0.884);
+}
+
+.lose-game-over{
+    background-color: rgba(245, 32, 32, 0.884);
+}
+
+.lose-game-over > .game-over-title{
+    background-color: rgba(48, 44, 44, 0.884);
+}
+
+.white-game-over{
+    background-color: rgba(255, 255, 255, 0.884);
+}
+
+.white-game-over > .game-over-title{
+    background-color: rgba(48, 44, 44, 0.884);
+}
+
+.black-game-over{
+    background-color: rgba(27, 25, 25, 0.884);
+    color: white;
+}
+
+.black-game-over > .game-over-title{
+    background-color: rgba(245, 225, 225, 0.925);
+    color : black;
+}
+
+.black-game-over > .game-over-winner-text{
+    color: white;
+}
+
 .game-over-title{
     font-size: 40px;
     color: white;
@@ -90,16 +136,11 @@
 }
 
 .game-over-winner-text{
-    font-size: 20px;
+    font-size: 2em;
+    font-weight: bold;
     font-family: 'Roboto', sans-serif;
 
     margin: 30px;
 
     color: black;
-}
-
-.game-over-winner-color{
-    font-size: 25px;
-    font-family: 'Roboto', sans-serif;
-    font-weight: bold;
 }
