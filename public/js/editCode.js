@@ -438,6 +438,12 @@ editor.on("keydown", function(){
   fileChange(fileSelected);
 });
 
+editor.on('beforeChange',function(cm, change) {
+  if (fileSelected == null) {
+      change.cancel();
+  }
+});
+
 document.addEventListener('keydown', e => {
   if (e.ctrlKey && e.key === 's') {
     e.preventDefault();

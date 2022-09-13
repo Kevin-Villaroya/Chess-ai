@@ -5,10 +5,11 @@ module.exports = class Player{
     this.id = id;
     this.socket = socket;
     this.idRoom = null;
-    this.elo = "600";
+    this.elo = '600';
 
-    this.icone = "default";
-    this.country = "default"
+    this.icone = 'default';
+    this.country = 'default';
+    this.ai = 'None';
   }
 
   setByDatabase(){
@@ -29,6 +30,7 @@ module.exports = class Player{
     this.country = data.country;
     this.icone = data.icone;
     this.id = data.id;
+    this.ai = data.ai;
   }
 
   enterInRoom(idRoom){
@@ -71,6 +73,16 @@ module.exports = class Player{
     return this.idRoom;
   }
 
+  getNameAI(){
+    let nameAI = this.ai;
+
+    if(nameAI != 'None'){
+      //TODO split ai directory to his name
+    }
+
+    return nameAI;
+  }
+
   data(){
     if(this.getType() == 'guest'){
       return {
@@ -80,7 +92,8 @@ module.exports = class Player{
         elo: '?',
         idRoom: this.getIdRoom(),
         icone: this.icone,
-        country: this.country
+        country: this.country,
+        ai: this.ai
       }
     }else{
       return {
@@ -90,7 +103,8 @@ module.exports = class Player{
         elo: this.elo,
         idRoom: this.getIdRoom(),
         icone: this.icone,
-        country: this.country
+        country: this.country,
+        ai: this.getNameAI()
       }
     }
   }

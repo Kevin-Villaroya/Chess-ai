@@ -6,7 +6,6 @@
 /.vagrant
 /.vscode
 /todo
-todolist
 /env
 *.env
 npm-debug.log

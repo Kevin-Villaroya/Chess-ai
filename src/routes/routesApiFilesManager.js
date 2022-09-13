@@ -27,6 +27,14 @@ router.post('/saveFile', (req, res) => {
     }
   });
 
+  db.setMainAI(file, path, id, (success) => {
+    if(success){
+      res.send(createErrorRequest(true));
+    }else{
+      
+    }
+  });
+
 });
 
 router.post('/addFile', (req, res) => {
