@@ -43,7 +43,7 @@ module.exports = class Room{
   }
 
   isRoomFull(){
-    if(this.type == 'local'){
+    if(this.type != 'versus'){
       return this.players.length == 1;
     }
 

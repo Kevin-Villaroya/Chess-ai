@@ -11,14 +11,16 @@
   <link rel="stylesheet" href="/css/editCode_style.css">
 </head>
 
-<body>
+<body id = "body">
 
-    <%- include('../partials/headerLeft'); %> 
+    <%- include('../partials/headerLeft'); %>
+
+    <%- include('../partials/editCode/cursor'); %> 
 
     <main>
         <%- include('../partials/title'); %>
 
-        <%- include('../partials/editCode'); %> 
+        <%- include('../partials/editCode/editCode'); %> 
     </main>
 
     <%- include('../partials/headerRight'); %>

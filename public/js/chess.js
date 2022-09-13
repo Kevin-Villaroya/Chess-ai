@@ -24,7 +24,7 @@ function setTypeGame(type){
 }
 
 async function enterRoom(){
-  socket.emit("play", typeGame , getCookie('idPlayer'));
+  socket.emit("play", typeGame , getCookie('idRoom'));
 
   socket.on("enterInRoom", (idRoom) => {
     setCookie('idRoom', idRoom);

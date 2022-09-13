@@ -6,6 +6,7 @@
 		"country":"fr",
 		"elo" : 600,
 		"icone": "default",
+		"ai": "",
 		"root" : 
 		[
 			{
@@ -39,6 +40,7 @@
 		"country":"es",
 		"elo": 1200,
 		"icone":"default",
+		"ai": "",
 		"root":
 		[
 			{

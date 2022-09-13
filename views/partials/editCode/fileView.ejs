@@ -1,0 +1,21 @@
+<% if (items.length > 0) { %>
+  <% items.forEach(function(item){ %>
+    <% if (item.type == "folder") { %>
+      <div class = "folder-code open" id="<%= item.name %>">
+        <div class = "folder-code-content" onclick="openFolder('<%= item.name %>')"style = "padding-left: <%=deep%>px;">
+            <img src = "/assets/icone/folder.png" class = "folder-code-image">
+            <span class = "folder-code-name"><%= item.name%></span>
+        </div>
+
+        <%- include('fileView', {items: item.content, deep: deep + 5}) %>
+      </div>
+    <% }else{ %>
+        <div class = "file-code open" id="<%= item.name %>" onclick="openFile(this)">
+          <div class = "file-code-content" style = "padding-left: <%=deep%>px;">
+              <img id="<%= item.name %>Image" src = "/assets/icone/valid-file.png" class = "file-code-image">
+              <span class = "file-code-name"><%= item.name%></span>
+          </div>
+        </div>
+    <% } %>
+  <% }) %>
+<% } %>

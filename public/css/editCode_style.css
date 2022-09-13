@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    width: 50%;
+    width: 60%;
     height: 84%;
     background-color: #8b7f7f63;
 
@@ -13,18 +13,20 @@
     display: flex;
     flex-direction: row;
 
-    align-items: center;
-    width: 100%;
-    height: 100%;
-
     align-items: flex-end;
+    width: 100%;
+    height: 10%;
+
+    justify-content: flex-start;
     margin-left: 10px;
     margin-right: 10px;
+
+    overflow: hidden;
 }
 
 .editor-code-container-title{
-    height: 40px;
-    width: 200px;
+    height: 8%;
+    width: 25%;
 
     background-color: rgb(14, 165, 14);
 
@@ -38,6 +40,8 @@
     clip-path: polygon(0 1%, 72% 0, 88% 100%, 0 100%);
 
     position: absolute;
+
+    margin-top: 10px;
 }   
 
 .editor-code-title{
@@ -54,13 +58,13 @@
 }
 
 .editor-code-button{
+    height: 8%;
+    width: 25%;
+
     color : white;
     background-color: rgb(39, 35, 35);
 
     border: 1px solid #000000;
-
-    height: 40px;
-    width: 200px;
 
     display: flex;
     align-items: center;
@@ -70,7 +74,9 @@
     clip-path: polygon(0 1%, 80% 0%, 100% 100%, 16% 100%);
 
     position: absolute;
-    left: 160px;
+    left: 20%;
+
+    margin-top: 10px;
 }
 
 .editor-code-button:hover{
@@ -84,7 +90,7 @@
     -webkit-clip-path: polygon(0 1%, 100% 0, 100% 100%, 20% 100%);
     clip-path: polygon(0 1%, 100% 0, 100% 100%, 20% 100%);
 
-    left: 325px;
+    left: 41%;
 }
 
 .editor-code-menu-containers{
@@ -95,6 +101,7 @@
     height: 99%;
 
     margin-bottom: 10px;
+    overflow: hidden;
 }
 
 .code-container{
@@ -147,6 +154,7 @@
     margin-left: 10px;
 
     border-left: 1px solid #000000;
+    overflow : scroll;
 }
 
 .folder-code{
@@ -156,6 +164,8 @@
     justify-content: start;
     width: 100%;
     height: fit-content;
+
+    margin-bottom: 10px;
 }
 
 .file-code{
@@ -174,7 +184,16 @@
     cursor: pointer;
 }
 
-.folder-code:hover .folder-code-content{
+.file-code.active{
+    background-color: #b1a5a5f8 ! important;
+}
+
+.folder-code.active > .folder-code-content{
+    background-color: #b1a5a5f8;
+    cursor: pointer;
+}
+
+.folder-code:hover > .folder-code-content{
     background-color: #b1a5a5f8;
     cursor: pointer;
 }
@@ -215,4 +234,63 @@
     justify-content: start;
     width: 100%;
     height: fit-content;
+}
+
+.open{
+    display: flex !important;
+}
+
+.closed{
+    display: none !important;
+}
+
+/* ============== CONTEXT MENU RIGHT-CLICK  ======================= */
+
+#context-menu{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    width: 200px;
+    height: fit-content;
+    z-index: 1000;
+
+    background-color: #110f0fd2;
+    border: 1px solid #0f0e0e91;
+    border-radius: 5px;
+
+    position: absolute;
+
+    overflow: hidden;
+}
+
+.item-context-menu{
+    color : white;
+    font-size: 15px;
+    padding: 5px;
+    border-bottom: 1px solid #3a3636d2;
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+
+    align-items: center;
+}
+
+.item-context-menu:hover{
+    background-color: rgba(80, 74, 74, 0.973);
+    cursor: pointer;
+}
+
+.item-context-image{
+    width: 15%;
+
+    aspect-ratio: 1;
+
+    margin-top: 5px;
+    margin-bottom: 5px;
+
+    margin-left: 10px;
+    margin-right: 10px;
 }

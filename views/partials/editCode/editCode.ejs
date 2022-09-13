@@ -1,0 +1,35 @@
+<div class = "edit-code-container">
+    <div class = "header-code-container">
+        <button class = "editor-code-container-title">
+            <span class = "editor-code-title">Editor</span>
+        </button>
+        <button onclick="save()" class = "editor-code-button" id = "save-code-button">
+            <img src = "/assets/icone/save.png" class = "editor-code-button-image">
+            Save
+        </button>
+        <button onclick = "test()" class = "editor-code-button right" id = "cancel-code-button">
+            <img src = "/assets/icone/play.png" class = "editor-code-button-image">
+            Test
+        </button>
+    </div>
+
+    <div class = "editor-code-menu-containers">
+        <div class = "files-container" id="files-container">
+            <%- include('fileView', {items: root, deep : 0}) %>
+        </div>
+        
+        <textarea id = "editor"></textarea>
+    </div>
+</div>
+
+<script src="/js/codemirror/codemirror.js"></script>
+<script src="/js/codemirror/mode/javascript.js"></script>
+
+<script src="/js/codemirror/addon/closebrackets.js"></script>
+<script src="/js/codemirror/addon/matchbrackets.js"></script>
+<script src="/js/codemirror/addon/match-highlighter.js"></script>
+<script src="/js/codemirror/addon/active-line.js"></script>
+<script src="/js/codemirror/addon/lint.js"></script>
+<script src="/js/codemirror/addon/javascript-lint.js"></script>
+<script src="https://unpkg.com/jshint@2.13.2/dist/jshint.js"></script>
+<script src="/js/editCode.js"></script>

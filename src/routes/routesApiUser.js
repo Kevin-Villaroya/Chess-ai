@@ -1,15 +1,10 @@
 const express = require('express');
 let router = express.Router();;
 
-const Player = require('./chess/model/Player');
+const Player = require('../chess/model/Player');
+const { getUser, getUserBySession } = require('../dbAccess/dbAccess');
 
-var db = require('./dbAccess');
-
-/* ======================= UTILS ========================== */
-
-function createErrorRequest(isSuccess, messageError){
-  return {success : isSuccess, message : messageError||""};
-}
+var db = require('../dbAccess/dbAccess');
 
 /* ====================== ROUTES ========================= */
 
@@ -30,8 +25,6 @@ router.post('/login', (req, res) => {
 });
   
 router.post('/register', (req, res) => {
-  console.log(req.body);
-
   let messageError = "";
   let password = req.body.password;
 
@@ -52,10 +45,6 @@ router.post('/register', (req, res) => {
   }else if(!password.match(/[^a-zA-Z0-9]+/g)){
     messageError = 'Password must contain at least one special character';
   }
-
-  console.log(messageError);
-  console.log(password);
-  console.log(password.length);
 
   db.existUser(req.body.email, req.body.nickname, (exist) => {
     if(exist == "nickname" && messageError == ""){

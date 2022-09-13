@@ -42,6 +42,7 @@ module.exports = class RoomManager{
 
       socket.on('play', (typeGame, idPlayer) => {
         player = new Player(idPlayer, socket);
+        player.setByDatabase();
         this.onPlay(typeGame, player);
       });
 
@@ -69,12 +70,22 @@ module.exports = class RoomManager{
     /** SOCKET TREATMENT **/
 
   onPlay(typeGame, player){
+    //console.log(player, 'in room manager');
+
     if(typeGame != 'local' && player.getType() == 'guest'){
       player.getSocket().emit('error', 'You must be logged in to play online');
       return;
     }
 
     let idRoom = this.addRoom(typeGame);
-    this.rooms[idRoom].addPlayer(player);
+
+    
+
+    if(typeGame == 'test'){
+      this.rooms[idRoom].addAI(player);
+      this.rooms[idRoom].addPlayer(player);
+    }else if (typeGame == 'local'){
+      this.addPlayer(idRoom, player);
+    }
   }
 }

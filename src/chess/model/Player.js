@@ -1,3 +1,5 @@
+let dbAccess = require('../..//dbAccess/dbAccess');
+
 module.exports = class Player{
   constructor(id, socket){
     this.id = id;
@@ -7,6 +9,17 @@ module.exports = class Player{
 
     this.icone = "default";
     this.country = "default"
+  }
+
+  setByDatabase(){
+    console.log(this.id);
+
+    dbAccess.getUserById(this.id, (data) => {
+      this.nickname = data.nickname;
+      this.elo = data.elo;
+      this.icone = data.icone;
+      this.country = data.country;
+    });
   }
 
   initByDatabase(data){

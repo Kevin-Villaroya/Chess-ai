@@ -1,8 +1,8 @@
 const express = require('express');
 let router = express.Router();
 
-const Player = require('./chess/model/Player');
-const db = require('./dbAccess');
+const Player = require('../chess/model/Player');
+const db = require('../dbAccess/dbAccess');
 
 //routes for the index page
 
@@ -17,8 +17,6 @@ router.get('/home', async (req, res) => {
   if(playerDB != null || playerDB != undefined){
     player.initByDatabase(playerDB);
   }
-
-  //console.log(player);
 
   res.render('pages/index', {
     title: 'Home - Chess AI',
