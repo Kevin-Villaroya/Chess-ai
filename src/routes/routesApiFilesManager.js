@@ -31,7 +31,7 @@ router.post('/saveFile', (req, res) => {
     if(success){
       res.send(createErrorRequest(true));
     }else{
-      
+      res.send(createErrorRequest(false, "Error while putting file in main AI"));
     }
   });
 
