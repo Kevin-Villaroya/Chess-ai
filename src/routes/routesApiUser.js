@@ -2,9 +2,9 @@ const express = require('express');
 let router = express.Router();;
 
 const Player = require('../chess/model/Player');
-const { getUser, getUserBySession } = require('../dbAccess/dbAccess');
 
 var db = require('../dbAccess/dbAccess');
+var utils = require('../utils/utils');
 
 /* ====================== ROUTES ========================= */
 

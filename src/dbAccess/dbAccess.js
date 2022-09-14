@@ -7,6 +7,8 @@ require('dotenv').config();
 var db;
 var dbAccess = {};
 
+var utils = require('../utils/utils');
+
 MongoClient.connect(process.env.MONGO_URL, 
   {
     useNewUrlParser: true,
@@ -97,6 +99,7 @@ dbAccess.addUser = function addUser(email, nickname, country, password){
       country: country,
       elo: 600,
       icone: 'default',
+      ai: '',
       root : new Array()
     }
 
@@ -151,6 +154,24 @@ dbAccess.saveFile = async function(fileReceived, path , idSession){
   file.content = fileReceived.content;
 
   db.collection('users').updateOne({_id : user._id}, {$set : {root : user.root}});
+}
+
+dbAccess.setMainAI = async function (fileReceived, path, idSession){
+  let user = await this.getUserBySession(idSession);
+
+  if(user == null){
+    return null;
+  }
+
+  let file = getFileAt(user.root, path, fileReceived.name);
+
+  if(file == null){
+    return null;
+  }
+
+  let aiMain = utils.pathToString(path, fileReceived.name);
+
+  db.collection('users').updateOne({_id : user._id}, {$set : {ai : aiMain}});
 }
 
 function hashPassword(password, callback){

@@ -1,11 +1,8 @@
 const express = require('express');
-let router = express.Router();;
-
-const Player = require('../chess/model/Player');
-const { getUser, getUserBySession } = require('../dbAccess/dbAccess');
+let router = express.Router();
 
 var db = require('../dbAccess/dbAccess');
-
+var utils = require('../utils/utils');
 
 router.post('/saveFile', (req, res) => {
   let fileName = req.body.name;
@@ -21,17 +18,17 @@ router.post('/saveFile', (req, res) => {
 
   db.saveFile(file, path, id, (success) => {
     if(success){
-      res.send(createErrorRequest(true));
+      res.send(utils.createErrorRequest(true));
     }else{
-      res.send(createErrorRequest(false, "Error while saving file"));
+      res.send(utils.createErrorRequest(false, "Error while saving file"));
     }
   });
 
   db.setMainAI(file, path, id, (success) => {
     if(success){
-      res.send(createErrorRequest(true));
+      res.send(utils.createErrorRequest(true));
     }else{
-      res.send(createErrorRequest(false, "Error while putting file in main AI"));
+      res.send(utils.createErrorRequest(false, "Error while putting file in main AI"));
     }
   });
 
@@ -59,11 +56,11 @@ router.post('/addFile', (req, res) => {
         items: content,
         deep: deep,
       }, (err, html) => {
-        res.send(createErrorRequest(true, html));
+        res.send(utils.createErrorRequest(true, html));
       });
 
     }else{
-      res.send(createErrorRequest(false, "File name already exist"));
+      res.send(utils.createErrorRequest(false, "File name already exist"));
     }
   });
 });
@@ -89,10 +86,10 @@ router.post('/addFolder', (req, res) => {
         items: content,
         deep: deep,
       }, (err, html) => {
-        res.send(createErrorRequest(true, html));
+        res.send(utils.createErrorRequest(true, html));
       } );
     }else{
-      res.send(createErrorRequest(false, "Folder name already exist"));
+      res.send(utils.createErrorRequest(false, "Folder name already exist"));
     }
   } );
 });
@@ -105,17 +102,17 @@ router.delete('/deleteFile', (req, res) => {
   if(fileName == null){
     db.deleteFolder(path, id, (success) => {
       if(success){
-        res.send(createErrorRequest(true));
+        res.send(utils.createErrorRequest(true));
       }else{
-        res.send(createErrorRequest(false, "Error while deleting folder"));
+        res.send(utils.createErrorRequest(false, "Error while deleting folder"));
       }
     });
   }else{
     db.deleteFile(path, fileName, id, (success) => {
       if(success){
-        res.send(createErrorRequest(true));
+        res.send(utils.createErrorRequest(true));
       }else{
-        res.send(createErrorRequest(false, "Error while deleting file"));
+        res.send(utils.createErrorRequest(false, "Error while deleting file"));
       }
     });
   }
@@ -130,9 +127,9 @@ router.post('/renameFile', (req, res) => {
 
   db.renameFile(path, fileName, newName, id, (success) => {
     if(success){
-      res.send(createErrorRequest(true));
+      res.send(utils.createErrorRequest(true));
     }else{
-      res.send(createErrorRequest(false, "Error while renaming file"));
+      res.send(utils.createErrorRequest(false, "Error while renaming file"));
     }
   });
 });

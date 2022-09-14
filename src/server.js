@@ -12,9 +12,10 @@ const io = require('socket.io')(server);
 const RoomManager = require('./chess/controller/RoomManager');
 
 const routes = require('./routes/routes');
-const chessRoutes = require('./routes/routes');
+const chessRoutes = require('./routes/routesChess');
 const apiRoutesUser = require('./routes/routesApiUser');
 const apiRoutesFile = require('./routes/routesApiFilesManager');
+const aiRoutes = require('./routes/routesAi');
 
 var MongoDBStore = require('connect-mongodb-session')(session);
 var store = new MongoDBStore({
@@ -46,6 +47,7 @@ app.use("/", routes);
 app.use("/play", chessRoutes);
 app.use("/api", apiRoutesUser);
 app.use("/api", apiRoutesFile);
+app.use("/ai", aiRoutes);
 
 app.set('view engine', 'ejs');
 app.use(express.static('public'));

@@ -36,7 +36,7 @@
 	{
 		"email":"test@gmail.com",
 		"nickname":"my nickname",
-		"password":"$2b$10$NEwh9Wbg3b8h5qO3y8bIvOeBNj11yqMWE5FTAeCiQdCRhkdNI2xfq",
+		"password":"$2b$10$CTyJI54hKY6k/qf.DbetluMB9Symqwrtvw//j29TNcSll3Xw4P6p2",
 		"country":"es",
 		"elo": 1200,
 		"icone":"default",

@@ -9,12 +9,9 @@ module.exports = class Player{
 
     this.icone = 'default';
     this.country = 'default';
-    this.ai = 'None';
   }
 
   setByDatabase(){
-    console.log(this.id);
-
     dbAccess.getUserById(this.id, (data) => {
       this.nickname = data.nickname;
       this.elo = data.elo;
@@ -76,9 +73,8 @@ module.exports = class Player{
   getNameAI(){
     let nameAI = this.ai;
 
-    if(nameAI != 'None'){
-      //TODO split ai directory to his name
-    }
+    nameAI = nameAI.split( '/' );
+    nameAI = nameAI[nameAI.length - 1];
 
     return nameAI;
   }
@@ -93,7 +89,7 @@ module.exports = class Player{
         idRoom: this.getIdRoom(),
         icone: this.icone,
         country: this.country,
-        ai: this.ai
+        nameAI: this.getNameAI()
       }
     }else{
       return {
@@ -104,7 +100,7 @@ module.exports = class Player{
         idRoom: this.getIdRoom(),
         icone: this.icone,
         country: this.country,
-        ai: this.getNameAI()
+        nameAI: this.getNameAI()
       }
     }
   }
