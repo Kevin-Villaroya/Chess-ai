@@ -174,6 +174,23 @@ dbAccess.setMainAI = async function (fileReceived, path, idSession){
   db.collection('users').updateOne({_id : user._id}, {$set : {ai : aiMain}});
 }
 
+dbAccess.deleteMainAI = async function (fileName, path, idSession){
+  let user = await this.getUserBySession(idSession);
+
+  if(user == null){
+    return null;
+  }
+
+  let file = getFileAt(user.root, path, fileName);
+  let aiMain = utils.pathToString(path, fileName);
+
+  if(file == null || user.ai != aiMain){
+    return null;
+  }else{
+    db.collection('users').updateOne({_id : user._id}, {$set : {ai : ""}});
+  }
+}
+
 function hashPassword(password, callback){
   bcrypt.hash(password, saltRounds, function(err, hash) {
       callback(hash);

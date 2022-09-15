@@ -24,7 +24,11 @@ function setTypeGame(type){
 }
 
 async function enterRoom(){
-  socket.emit("play", typeGame , getCookie('idRoom'));
+  let idSession = await getCookie("connect.sid");
+  idSession = idSession.split(":")[1];
+  idSession = idSession.split(".")[0];
+
+  socket.emit("play", typeGame , idSession);
 
   socket.on("enterInRoom", (idRoom) => {
     setCookie('idRoom', idRoom);

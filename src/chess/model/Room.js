@@ -7,13 +7,10 @@ module.exports = class Room{
     this.io = io;
 
     this.players = new Array();
-
-    console.log("Room: the room " + this.id + " is created whith type " + this.type);
   }
 
   addPlayer(player){
     if(this.isRoomFull()){
-      console.log("Room: the room is full");
       return false;
     }
 
@@ -36,7 +33,11 @@ module.exports = class Room{
   }
 
   startGame(){
-    console.log("Room: the game in room " + this.id + " is starting");
+    if(this.players[0] != undefined && this.players[1] != undefined){
+      console.log("Room: the game in room " + this.id + " is starting whit the players" + this.players[0].nickname + " and " + this.players[1].nickname);
+    }else{
+      console.log("Room: the game in room " + this.id + " is starting whit the player " + this.players[0].nickname);
+    }
 
     this.chessTable = new Chess(this.type, this.players[0], this.players[1]);
     this.chessTable.startGame();

@@ -1,6 +1,10 @@
-- fichier ia selectionner (par defaut aucun)
-- modifier le menu ia selectionnable par son nom et retirer la version
-- laisser en mode reduce de base
+- Donner des sets de possibiliés pour le test
+    - Joueur vs ia
+        - blanc ou noir
+    - Ia par defaut contre ia
+        - blanc ou noir
+- creer une route de test avec en parametre le path de l'ia et les parametres precedemment demandé
+- Apres le chargement de la page creation de la room et mise en place de la partie (demandé 1 joueur ou 0 joueur)
 - faire api test de ia (humain vs ia)
     - en cas de crash faire un coup aleatoire (ia simple)
     - limité le temps de calcul de chaque tour

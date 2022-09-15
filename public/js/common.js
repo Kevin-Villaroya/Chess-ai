@@ -1,3 +1,6 @@
+reduceRightHeader('friends-header-container');
+reduceRightHeader('notifications-header-container');
+
 function reduceHeaderLeft(){
     let headerLeft = document.getElementById("header-left");
     let elements = getElementsToReduce(headerLeft);

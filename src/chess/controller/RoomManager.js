@@ -1,5 +1,6 @@
 const Player = require('../model/Player');
 const Room = require('../model/Room');
+const db = require('../../dbAccess/dbAccess');
 
 module.exports = class RoomManager{
   constructor(io){
@@ -35,20 +36,21 @@ module.exports = class RoomManager{
   }
 
   listen(){
-    this.io.on('connection', (socket) => { 
-      console.log('RoomManager: a user is connected');
+    this.io.on('connection', async (socket) => {
+      let player = new Player();
+      player.socket = socket;
 
-      let player = null;
+      socket.on('play', async (typeGame, idSession) => {
+        let playerDB = await db.getUserBySession(idSession);
 
-      socket.on('play', (typeGame, idPlayer) => {
-        player = new Player(idPlayer, socket);
-        player.setByDatabase();
+        if(playerDB != null || playerDB != undefined){
+          player.initByDatabase(playerDB);
+        }
+
         this.onPlay(typeGame, player);
       });
 
       socket.on('disconnect', () => {
-          console.log('RoomManager: user disconnected');
-
           if(player != null){
             let room = this.getRoom(player.getIdRoom());
 
@@ -70,16 +72,12 @@ module.exports = class RoomManager{
     /** SOCKET TREATMENT **/
 
   onPlay(typeGame, player){
-    //console.log(player, 'in room manager');
-
     if(typeGame != 'local' && player.getType() == 'guest'){
       player.getSocket().emit('error', 'You must be logged in to play online');
       return;
     }
 
     let idRoom = this.addRoom(typeGame);
-
-    
 
     if(typeGame == 'test'){
       this.rooms[idRoom].addAI(player);

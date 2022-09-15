@@ -36,7 +36,12 @@ app.use(session({
   secret: process.env.secret,
   resave: false,
   saveUninitialized: true,
-  store: store
+  store: store,
+  cookie: 
+  {
+    secure: false,
+    httpOnly: false
+  }
 }));
 
 app.use(cors());

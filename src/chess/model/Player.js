@@ -9,6 +9,7 @@ module.exports = class Player{
 
     this.icone = 'default';
     this.country = 'default';
+    this.ai = "Default"
   }
 
   setByDatabase(){
@@ -32,15 +33,9 @@ module.exports = class Player{
 
   enterInRoom(idRoom){
     this.idRoom = idRoom;
-
-    this.getSocket().emit('enterInRoom', idRoom);
-
-    console.log('Player: the player entered' + this.id + ' in room ' + this.idRoom);
   }
 
   leaveRoom(){
-    console.log('Player: the player left' + this.id + ' in room ' + this.idRoom);
-
     this.getSocket().emit('leaveRoom', this.idRoom);
 
     this.idRoom = null;

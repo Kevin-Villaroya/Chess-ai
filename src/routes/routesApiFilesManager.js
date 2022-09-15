@@ -115,6 +115,8 @@ router.delete('/deleteFile', (req, res) => {
         res.send(utils.createErrorRequest(false, "Error while deleting file"));
       }
     });
+
+    db.deleteMainAI(fileName, path, id);
   }
 });
 
