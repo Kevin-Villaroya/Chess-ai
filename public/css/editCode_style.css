@@ -294,3 +294,86 @@
     margin-left: 10px;
     margin-right: 10px;
 }
+
+/* ============== OPTION TEST PARAMETERS  ======================= */
+
+.test-parameters-popup{
+    position: absolute;
+
+    left: 40%;
+    top: 30%;
+
+    background-color: #d6d5d5dc;
+    color: black;
+
+    z-index: 3;
+
+    width: 20%;
+    height: 40%;
+
+    min-width: fit-content;
+    min-height: fit-content;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.title-popup{
+    color: green;
+    font-size: 2em;
+    font-weight: bold;
+
+    padding: 2px;
+
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.test-parameters-titles{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    max-width: 100%;
+    border-bottom: solid black 1px;
+
+    margin: 5px;
+}
+
+.test-parameters-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    
+    height : 100%;
+}
+
+.title-parameter{
+    padding: 3px;
+    border: solid black 1px;
+    margin-left: 1px;
+    margin-right: 1px;
+    margin-bottom: -1px;
+}
+
+.selectedTitle{
+    background-color: #c5bcbc;
+}
+
+.title-content{
+    font-size: 1.5em;
+
+    margin-bottom: 10px;
+}
+
+.content-parameter{
+    border-radius: 20px;
+    border: solid 2px rgb(0, 0, 0);
+
+    margin: 5px;
+    padding: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
