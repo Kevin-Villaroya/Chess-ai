@@ -308,26 +308,26 @@
 
     z-index: 3;
 
-    width: 20%;
-    height: 40%;
-
     min-width: fit-content;
-    min-height: fit-content;
+    width: 30%;
+
+    height: fit-content;
 
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 .title-popup{
     color: green;
-    font-size: 2em;
+    font-size: 1.5em;
     font-weight: bold;
 
     padding: 2px;
 
-    margin-bottom: 5px;
-    margin-top: 5px;
+    margin-bottom: 10px;
+    margin-top: 10px;
 }
 
 .test-parameters-titles{
@@ -335,19 +335,21 @@
     flex-direction: row;
     justify-content: center;
 
-    max-width: 100%;
+    max-width: 90%;
+    width: 90%;
     border-bottom: solid black 1px;
 
-    margin: 5px;
+    margin: 10px;
 }
 
 .test-parameters-content{
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: start;
     align-items: center;
     
-    height : 100%;
+    height : fit-content;
+    margin: 10px;
 }
 
 .title-parameter{
@@ -363,16 +365,18 @@
 }
 
 .title-content{
-    font-size: 1.5em;
+    font-size: 1.3em;
+    text-decoration: underline;
 
     margin-bottom: 10px;
+    color: #3e413f;
 }
 
 .content-parameter{
     border-radius: 20px;
     border: solid 2px rgb(0, 0, 0);
 
-    margin: 5px;
+    margin-bottom: 10px;
     padding: 5px;
     padding-left: 20px;
     padding-right: 20px;
