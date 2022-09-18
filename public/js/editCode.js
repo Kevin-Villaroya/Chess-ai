@@ -7,6 +7,8 @@ var pathFolder = null;
 
 const contextMenu = document.getElementById('context-menu');
 
+/* ========================= INIT LISTENERS =========================*/
+
 document.getElementById('files-container').addEventListener('contextmenu', function(e){
   displayContextMenu(e);
 
@@ -22,6 +24,63 @@ document.getElementById('files-container').addEventListener('mousedown', functio
 document.getElementById('body').addEventListener('click', function(e){
   hideContextMenu(e);
 });
+
+/* ========================= SET PARAMETERS TEST =========================*/
+
+var parameters = {color : "white", "type" : "Player"}
+var titleSelected = document.getElementById("PlayerOptionTitle");
+var parametersSelected = document.getElementById("whiteOption");
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    closePopup();
+  }
+});
+
+function test(){
+  let popup = document.getElementById("testParameterPopup");
+
+  if(popup.classList.contains("open")){
+    popup.classList.remove("open");
+  }else{
+    popup.classList.add("open");
+  }
+}
+
+function closePopup(){
+  let popup = document.getElementById("testParameterPopup");
+  popup.classList.remove("open");
+}
+
+function setParameterTestColor(color){
+  parameters.color = color;
+}
+
+function launchTest(){
+  let url = '/test/' + parameters.type + '/' + parameters.color;
+
+  window.location.href = url;
+}
+
+function setSelectedType(element, type){
+  titleSelected.classList.remove("selected");
+
+  element.classList.add("selected");
+  parameters.type = type;
+
+  titleSelected = element;
+}
+
+function setSelectedParameter(element, color){
+  parametersSelected.classList.remove("selected");
+
+  element.classList.add("selected");
+  parameters.color = color;
+
+  parametersSelected = element;
+}
+
+/* ========================= SET FILES METHODS =========================*/
 
 function getFile(path, fileName){
   let folder = getFolder(path);
@@ -209,31 +268,6 @@ function openFolder(folderName){
       child.classList.add('open');
     }
   }
-}
-
-function test(){
-  let xhr = new XMLHttpRequest();
-  xhr.open('POST', '/api/testAI', true);
-  xhr.setRequestHeader('Content-Type', 'application/json');
-
-  xhr.onreadystatechange = function(){
-    if(xhr.readyState == 4 && xhr.status == 200){
-      let response = JSON.parse(xhr.responseText);
-
-      if(response.success){
-        window.location.href = '/play/test';
-      }else{
-        alert('Error');
-      }
-      //window.location.href = '/play/test';
-    }
-  }
-
-  xhr.send(JSON.stringify({
-    name: fileSelected,
-    content: editor.getValue(),
-    path : pathFolder
-  }));
 }
 
 function openFile(fileDom){

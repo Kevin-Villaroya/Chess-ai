@@ -296,22 +296,30 @@
 }
 
 /* ============== OPTION TEST PARAMETERS  ======================= */
+.popup:not(.open){
+    display: none;
+}
+
+.popup{
+    width: 100%;
+    height: 100%;
+
+    background-color: #1f1c1cd5;
+    position: absolute;
+
+    z-index: 3;
+}
 
 .test-parameters-popup{
     position: absolute;
-
-    left: 40%;
-    top: 30%;
-
-    background-color: #1f1c1ccc;
+    background-color: #8d8383ee;
     color: white;
 
-    z-index: 3;
+    width: 30%;
+    height: 20%;
 
-    min-width: fit-content;
-    width: 20%;
-
-    height: fit-content;
+    left: 35%;
+    top: 40%;
 
     display: flex;
     flex-direction: column;
@@ -355,9 +363,16 @@
     border-top-right-radius: 5px;
 }
 
-.selectedTitle{
+.title-parameter.selected{
     background-color: #c6f1d3d2;
     color: black !important;
+}
+
+.title-parameter:not(.selectedTitle):hover{
+    background-color: #dde9e1ea;
+    color: black !important;
+
+    cursor: pointer;
 }
 
 .content-parameter{
@@ -370,6 +385,54 @@
     padding-right: 20px;
 }
 
+.content-parameter.selected{
+    border-color: red !important;    
+}
+
+.test-parameters-validation{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    height: 100%;
+}
+
+.content-parameter#validate{
+    background-color: #0d8531d2;
+    border-color: rgb(33, 192, 60);
+
+    font-weight: bold;
+    color: black;
+
+    margin-top: 20px;
+}
+
+.content-parameter#validate:hover{
+    background-color: #14ca4bd2;
+    border-color: rgb(156, 238, 169);
+
+    cursor : pointer;
+}
+
+.content-parameter#cancel{
+    background-color: #770404d2;
+    border-color: rgb(187, 104, 104);
+
+    font-weight: bold;
+    color: black;
+
+    margin-top: 20px;
+}
+
+.content-parameter#cancel:hover{
+    background-color: #b40909d2;
+    border-color: rgb(214, 165, 165);
+
+    cursor : pointer;
+}
+
 #whiteOption.content-parameter {
     border-color: rgb(255, 255, 255);
     color: white;
@@ -377,9 +440,23 @@
     background-color: rgb(53, 53, 53);
 }
 
+#whiteOption.content-parameter:hover{
+    color: black;
+    background-color: rgb(204, 202, 202);
+
+    cursor: pointer;
+}
+
 #blackOption.content-parameter {
     border-color: black;
     color: black;
 
     background-color: rgb(175, 175, 175);
+}
+
+#blackOption.content-parameter:hover {
+    color: white;
+    background-color: rgb(26, 25, 25);
+
+    cursor: pointer;
 }

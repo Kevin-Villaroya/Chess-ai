@@ -1,22 +1,32 @@
-<div class = "test-parameters-popup">
-
-    <div class = "test-parameters-titles">
-        <div class = "title-parameter selectedTitle" id = "PlayerOptionTitle">
-            <span>Player vs Your AI</span>
-        </div>
-
-        <div class = "title-parameter" id = "AIOptionTitle">
-            <span>Standard AI vs Your AI</span>
-        </div>
-    </div>
-
-    <div class = "test-parameters-content">
-        <div class = "test-parameters-contents selected" id = "PlayerOptionContent">
-            <div class = "content-parameter" id = "whiteOption">
-                <span>White</span>
+<div class = "popup" id = "testParameterPopup">
+    <div class = "test-parameters-popup">
+        <div class = "test-parameters-titles">
+            <div class = "title-parameter selected" id = "PlayerOptionTitle"  onclick = "setSelectedType(this, 'Player')">
+                <span>Player vs Your AI</span>
             </div>
-            <div class = "content-parameter" id = "blackOption">
-                <span>Black</span>
+
+            <div class = "title-parameter" id = "AIOptionTitle"  onclick = "setSelectedType(this, 'AI')">
+                <span>Standard AI vs Your AI</span>
+            </div>
+        </div>
+
+        <div class = "test-parameters-content">
+            <div class = "test-parameters-contents selected" id = "PlayerOptionContent">
+                <div class = "content-parameter selected" id = "whiteOption" onclick = "setSelectedParameter(this, 'white')">
+                    <span>White</span>
+                </div>
+                <div class = "content-parameter" id = "blackOption"  onclick = "setSelectedParameter(this, 'black')">
+                    <span>Black</span>
+                </div>
+            </div>
+
+            <div class = "test-parameters-validation">
+                <div class = "content-parameter" id = "validate"  onclick = "launchTest()">
+                    <span>Launch Test</span>
+                </div>
+                <div class = "content-parameter" id = "cancel"  onclick = "closePopup()">
+                    <span>Cancel Test</span>
+                </div>
             </div>
         </div>
     </div>
