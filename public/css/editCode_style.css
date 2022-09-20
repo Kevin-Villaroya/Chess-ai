@@ -315,8 +315,11 @@
     background-color: #8d8383ee;
     color: white;
 
-    width: 30%;
-    height: 20%;
+    width: 40%;
+    min-width: fit-content;
+
+    height: 30%;
+    min-height: fit-content;
 
     left: 35%;
     top: 40%;
@@ -327,6 +330,7 @@
     align-items: center;
 
     border-radius: 20px;
+    padding : 10px;
 }
 
 .test-parameters-titles{
@@ -383,10 +387,20 @@
     padding: 5px;
     padding-left: 20px;
     padding-right: 20px;
+
+    position: relative;
 }
 
-.content-parameter.selected{
-    border-color: red !important;    
+.content-parameter.selected::before
+{
+    content: "➡";
+    display: block;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: -2em;
+
+    color: black;
 }
 
 .test-parameters-validation{

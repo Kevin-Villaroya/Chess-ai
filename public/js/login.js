@@ -22,17 +22,17 @@ function validate(){
     }
 
     if(document.getElementById('password').value == ''){
-        error += 'Password is required';
+        error += 'Password is required<br>';
     }else if(document.getElementById('password').value.length < 6 || document.getElementById('password').value.length > 20){
-        error += 'Password must be between 6 and 20 characters';
+        error += 'Password must be between 6 and 20 characters<br>';
     }else if(!document.getElementById('password').value.match(/\d+/g)){
-        error += 'Password must contain at least one number';
+        error += 'Password must contain at least one number<br>';
     }else if(!document.getElementById('password').value.match(/[a-zA-Z]+/g)){
-        error += 'Password must contain at least one letter';
+        error += 'Password must contain at least one letter<br>';
     }else if(!document.getElementById('password').value.match(/[^a-zA-Z0-9]+/g)){
-        error += 'Password must contain at least one special character';
+        error += 'Password must contain at least one special character<br>';
     }else if(document.getElementById('password').value != document.getElementById('confirm-password').value){
-        error += 'Passwords do not match';
+        error += 'Passwords do not match<br>';
     }
 
     if(document.getElementById('country').value == ''){
