@@ -9,7 +9,7 @@ var dbAccess = {};
 
 var utils = require('../utils/utils');
 
-MongoClient.connect(process.env.MONGO_DB, 
+MongoClient.connect(process.env.MONGO_URL, 
   {
     useNewUrlParser: true,
     useUnifiedTopology: true

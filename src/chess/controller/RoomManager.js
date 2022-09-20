@@ -35,19 +35,21 @@ module.exports = class RoomManager{
 		return id;
   }
 
+  /** SOCKET TREATMENT **/
+
   listen(){
     this.io.on('connection', async (socket) => {
       let player = new Player();
       player.socket = socket;
 
-      socket.on('play', async (typeGame, idSession) => {
+      socket.on('play', async (typeGame, idSession, parametersGame) => {
         let playerDB = await db.getUserBySession(idSession);
 
         if(playerDB != null || playerDB != undefined){
           player.initByDatabase(playerDB);
         }
 
-        this.onPlay(typeGame, player);
+        this.onPlay(typeGame, player, parametersGame);
       });
 
       socket.on('disconnect', () => {
@@ -69,9 +71,8 @@ module.exports = class RoomManager{
     });
   }
 
-    /** SOCKET TREATMENT **/
 
-  onPlay(typeGame, player){
+  onPlay(typeGame, player, parametersGame){
     if(typeGame != 'local' && player.getType() == 'guest'){
       player.getSocket().emit('error', 'You must be logged in to play online');
       return;
@@ -80,8 +81,17 @@ module.exports = class RoomManager{
     let idRoom = this.addRoom(typeGame);
 
     if(typeGame == 'test'){
-      this.rooms[idRoom].addAI(player);
-      this.rooms[idRoom].addPlayer(player);
+      let playerAI = player;
+      playerAI.setHasAI();
+
+      if(parametersGame.typeTest == 'Player'){
+        //TODO
+        //this.addAI(idRoom, player, parametersGame.pathAI, parametersGame.color, );
+        this.addPlayer(idRoom, player);
+      }else if(parametersGame.typeTest == 'AI'){
+        this.addAI(idRoom, player, ai);
+        this.addAI(idRoom, player, ai);
+      }
     }else if (typeGame == 'local'){
       this.addPlayer(idRoom, player);
     }

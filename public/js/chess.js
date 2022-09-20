@@ -28,7 +28,9 @@ async function enterRoom(){
   idSession = idSession.split(":")[1];
   idSession = idSession.split(".")[0];
 
-  socket.emit("play", typeGame , idSession);
+  let parametersGame = setParametersGameForTest();
+
+  socket.emit("play", typeGame , idSession, parametersGame);
 
   socket.on("enterInRoom", (idRoom) => {
     setCookie('idRoom', idRoom);
@@ -49,6 +51,17 @@ async function enterRoom(){
       rotateBoard();
     }
   });
+}
+
+function setParametersGameForTest(){
+  let url = document.URL;
+  url = url.split('/');
+
+  let typeGame = url[5];
+  let colorAi = url[6];
+  let aiPath = url[7];
+
+  return {pathAI: aiPath, color: colorAi, typeTest: typeGame};
 }
 
 function makeMove(){

@@ -16,11 +16,13 @@ function reduceRightHeader(idRightContainer){
     let headerRight = document.getElementById(idRightContainer);
     let elements = getElementsToReduce(headerRight);
 
-    for(let element of elements){
-        element.classList.toggle("reduce-right-header");
+    if(elements != undefined && elements != null){
+        for(let element of elements){
+            element.classList.toggle("reduce-right-header");
+        }
+    
+        headerRight.classList.toggle("reduce-right-header");
     }
-
-    headerRight.classList.toggle("reduce-right-header");
 }
 
 function getElementsToReduce(element){

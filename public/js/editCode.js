@@ -40,6 +40,10 @@ document.addEventListener('keydown', e => {
 function test(){
   let popup = document.getElementById("testParameterPopup");
 
+  if(fileSelected == null){
+    return;
+  }
+
   if(popup.classList.contains("open")){
     popup.classList.remove("open");
   }else{
@@ -57,7 +61,13 @@ function setParameterTestColor(color){
 }
 
 function launchTest(){
-  let url = '/test/' + parameters.type + '/' + parameters.color;
+  let pathFolderString = "";
+
+  for(let folder of pathFolder){
+    pathFolderString += folder + ":";
+  }
+
+  let url = '/play/test/' + parameters.type + '/' + parameters.color + '/' + pathFolderString + fileSelected;
 
   window.location.href = url;
 }

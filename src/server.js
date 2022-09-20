@@ -19,7 +19,7 @@ const aiRoutes = require('./routes/routesAi');
 
 var MongoDBStore = require('connect-mongodb-session')(session);
 var store = new MongoDBStore({
-  uri: process.env.MONGO_DB,
+  uri: process.env.MONGO_URL,
   databaseName: 'ChessAI',
   collection: 'sessions',
   connectionOptions: {

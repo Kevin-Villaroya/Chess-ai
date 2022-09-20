@@ -12,12 +12,26 @@ module.exports = class Player{
     this.ai = "Default"
   }
 
+  setHasAI(){
+    this.playerIsAI = true;
+  }
+
+  isAI(){
+    if(this.playerIsAI != undefined && this.playerIsAI == true){
+      return true;
+    }
+
+    return false;
+  }
+
   setByDatabase(){
     dbAccess.getUserById(this.id, (data) => {
       this.nickname = data.nickname;
       this.elo = data.elo;
       this.icone = data.icone;
       this.country = data.country;
+      this.ai = data.ai;
+      this.id = data._id;
     });
   }
 
@@ -27,7 +41,7 @@ module.exports = class Player{
     this.elo = data.elo;
     this.country = data.country;
     this.icone = data.icone;
-    this.id = data.id;
+    this.id = data._id;
     this.ai = data.ai;
   }
 
@@ -44,6 +58,8 @@ module.exports = class Player{
   getType(){
     if(this.nickname == undefined){
       return 'guest';
+    }else if(this.isAI()){
+      return this.getNameAI();
     }else{
       return 'user';
     }
@@ -66,9 +82,15 @@ module.exports = class Player{
   }
 
   getNameAI(){
+    if(this.ai == undefined || this.ai == null){
+      return "None";
+    }
+
+    console.log(this.ai)
+
     let nameAI = this.ai;
 
-    nameAI = nameAI.split( '/' );
+    nameAI = nameAI.split('/');
     nameAI = nameAI[nameAI.length - 1];
 
     return nameAI;
