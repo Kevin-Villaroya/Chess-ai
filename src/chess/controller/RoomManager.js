@@ -22,8 +22,12 @@ module.exports = class RoomManager{
     return this.rooms[id];
   }
 
-  addPlayer(id, player){
-    this.rooms[id].addPlayer(player);
+  addPlayer(idRoom, player){
+    this.rooms[idRoom].addPlayer(player);
+  }
+  
+  addAI(idRoom, playerAI, color){
+    this.rooms[idRoom].addPlayer(playerAI, color);
   }
 
   getAvailableId(){

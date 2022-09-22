@@ -23,6 +23,22 @@ module.exports = class Room{
     }
   }
 
+  addAI(playerAI, color){
+    if(this.isRoomFull()){
+      return false;
+    }
+
+    playerAI.color = color;
+
+    this.players.push(playerAI);
+
+    playerAI.enterInRoom(this.id);
+
+    if(this.isRoomFull()){
+      this.startGame();
+    }
+  }
+
   removePlayer(player){
     let index = this.players.indexOf(player);
 

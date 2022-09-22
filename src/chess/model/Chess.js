@@ -66,6 +66,9 @@ module.exports = class Chess {
     this.pieces.push(new Pawn('black', 'f7'));
     this.pieces.push(new Pawn('black', 'g7'));
     this.pieces.push(new Pawn('black', 'h7'));
+
+    console.log(this.player1.getName(), this.player1.color);
+    console.log(this.player2.getName(), this.player2.color);
   }
 
   setPlayerColors(){
