@@ -6,7 +6,7 @@
         <div class = "player-score-row-container">
             <%if (locals.player2){ %>
                 <span class = "player_nickname"><%= locals.player2.nickname %></span>
-                <span>(<%= locals.player2.elo %>)</span>
+                <span>(<%= locals.player2.elo %>  <%= locals.player2.type %>)</span>
             <% }else{ %>
                 <span class = "player_nickname">Guest</span>
                 <span>(?)</span>

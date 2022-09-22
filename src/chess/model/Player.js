@@ -12,7 +12,18 @@ module.exports = class Player{
     this.ai = "Default"
   }
 
-  setHasAI(){
+  setHasAI(player, pathAI){
+    this.id = player.id;
+    this.socket = player.socket;
+    this.idRoom = player.idRoom;
+    this.elo = player.elo;
+
+    this.icone = player.icone;
+    this.country = player.country;
+    this.ai = pathAI;
+
+    this.nickname = player.nickname;
+
     this.playerIsAI = true;
   }
 
@@ -59,14 +70,16 @@ module.exports = class Player{
     if(this.nickname == undefined){
       return 'guest';
     }else if(this.isAI()){
-      return this.getNameAI();
+      return 'AI'
     }else{
       return 'user';
     }
   }
 
   getName(){
-    if(this.nickname == undefined){
+    if(this.isAI()){
+      return this.getNameAI();
+    }else if(this.nickname == undefined){
       return 'guest';
     }
 
@@ -85,8 +98,6 @@ module.exports = class Player{
     if(this.ai == undefined || this.ai == null){
       return "None";
     }
-
-    console.log(this.ai)
 
     let nameAI = this.ai;
 

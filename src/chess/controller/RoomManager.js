@@ -1,6 +1,7 @@
 const Player = require('../model/Player');
 const Room = require('../model/Room');
 const db = require('../../dbAccess/dbAccess');
+const { param } = require('../../routes/routesChess');
 
 module.exports = class RoomManager{
   constructor(io){
@@ -81,16 +82,16 @@ module.exports = class RoomManager{
     let idRoom = this.addRoom(typeGame);
 
     if(typeGame == 'test'){
-      let playerAI = player;
-      playerAI.setHasAI();
+      let playerAI = new Player();
+      playerAI.setHasAI(player, parametersGame.pathAI);
 
       if(parametersGame.typeTest == 'Player'){
-        //TODO
-        //this.addAI(idRoom, player, parametersGame.pathAI, parametersGame.color, );
+        this.addAI(idRoom, playerAI, parametersGame.color);
         this.addPlayer(idRoom, player);
       }else if(parametersGame.typeTest == 'AI'){
-        this.addAI(idRoom, player, ai);
-        this.addAI(idRoom, player, ai);
+        //this.addAI(idRoom, player, ai);
+        //this.addAI(idRoom, player, ai);
+        //TODO Make a standard ai
       }
     }else if (typeGame == 'local'){
       this.addPlayer(idRoom, player);
