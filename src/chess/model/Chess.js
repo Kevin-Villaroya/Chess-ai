@@ -66,9 +66,6 @@ module.exports = class Chess {
     this.pieces.push(new Pawn('black', 'f7'));
     this.pieces.push(new Pawn('black', 'g7'));
     this.pieces.push(new Pawn('black', 'h7'));
-
-    console.log(this.player1.getName(), this.player1.color);
-    console.log(this.player2.getName(), this.player2.color);
   }
 
   setPlayerColors(){
@@ -76,6 +73,14 @@ module.exports = class Chess {
 
     if(this.type == 'local'){
       this.player1.color = 'white';
+    }else if(this.type == 'test'){
+      if(this.player1.color != undefined && this.player1.color != ''){
+        this.player1.color = this.player1.color;
+        this.player2.color = this.player1.color == 'white' ? 'black' : 'white';
+      }else if(this.player2.color != undefined && this.player2.color != ''){
+        this.player2.color = this.player2.color;
+        this.player1.color = this.player2.color == 'white' ? 'black' : 'white';
+      }
     }else{
       if(rand == 0){
         this.player1.color = 'white';
@@ -114,7 +119,7 @@ module.exports = class Chess {
       player2: this.player2.data()
     });
 
-    if(this.type != 'local'){
+    if(this.type == 'online'){
       this.player2.socket.emit('startGame', {
         pieces: this.pieces,
         colorPlayer: this.player2.color,

@@ -1,8 +1,4 @@
-- Donner des sets de possibiliés pour le test
-    - Joueur vs ia
-        - blanc ou noir
-    - Ia par defaut contre ia
-        - blanc ou noir
+- Probleme de jeu lors d'une partie test
 - creer une route de test avec en parametre le path de l'ia et les parametres precedemment demandé
 - Apres le chargement de la page creation de la room et mise en place de la partie (demandé 1 joueur ou 0 joueur)
 - faire api test de ia (humain vs ia)

@@ -27,7 +27,7 @@ module.exports = class RoomManager{
   }
   
   addAI(idRoom, playerAI, color){
-    this.rooms[idRoom].addPlayer(playerAI, color);
+    this.rooms[idRoom].addAI(playerAI, color);
   }
 
   getAvailableId(){
@@ -87,6 +87,7 @@ module.exports = class RoomManager{
 
     if(typeGame == 'test'){
       let playerAI = new Player();
+      parametersGame.pathAI = parametersGame.pathAI.replace(':', '/');
       playerAI.setHasAI(player, parametersGame.pathAI);
 
       if(parametersGame.typeTest == 'Player'){
