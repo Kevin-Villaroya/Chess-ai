@@ -10,6 +10,18 @@ module.exports = class Player{
     this.icone = 'default';
     this.country = 'default';
     this.ai = "Default"
+
+    this.color = '';
+  }
+
+  async evalAI(chess){
+    if(!this.isAI()){
+      return;
+    }
+
+    let ai = await dbAccess.getContentFile(this.id, this.ai);
+    console.log(ai);
+    eval(ai);
   }
 
   setHasAI(player, pathAI){

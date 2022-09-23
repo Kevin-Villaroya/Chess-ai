@@ -404,6 +404,25 @@ dbAccess.renameFile = async function (path, fileName, newName, idSession, callba
   callback(true);
 };
 
+dbAccess.getContentFile = async function(idUser, path){
+  let user = await this.getUserById(idUser);
+  path = path.split('/');
+  let fileName = path[path.length - 1];
+  path = path.slice(0, path.length - 1);
+
+  if(user == null){
+    return null;
+  }
+
+  let file = getFileAt(user.root, path, fileName);
+
+  if(file == null){
+    return null;
+  }
+
+  return file.content;
+}
+
 /*===================== UTILS ========================*/
 /*===================== UTILS FILES ========================*/
 
@@ -413,19 +432,15 @@ function getFolderAt(root, path){
   }
 
   if(root.content == null || root.content == undefined){
-    for(let i = 0; i < path.length; i++){
-      for(let j = 0; j < root.length; j++){
-        if(root[j].name == path[i]){
-          return getFolderAt(root[j], path.slice(i+1));
-        }
+    for(let j = 0; j < root.length; j++){
+      if(root[j].name == path[0]){
+        return getFolderAt(root[j], path.slice(1));
       }
     }
   }else{
-    for(let i = 0; i < path.length; i++){
-      for(let j = 0; j < root.content.length; j++){
-        if(root.content[j].name == path[i]){
-          return getFolderAt(root.content[j], path.slice(i+1));
-        }
+    for(let j = 0; j < root.content.length; j++){
+      if(root.content[j].name == path[0]){
+        return getFolderAt(root.content[j], path.slice(1));
       }
     }
   }

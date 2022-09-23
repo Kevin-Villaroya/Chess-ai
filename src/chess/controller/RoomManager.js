@@ -87,12 +87,14 @@ module.exports = class RoomManager{
 
     if(typeGame == 'test'){
       let playerAI = new Player();
+
+      parametersGame.pathAI = decodeURI(parametersGame.pathAI);
       parametersGame.pathAI = parametersGame.pathAI.replace(':', '/');
       playerAI.setHasAI(player, parametersGame.pathAI);
 
       if(parametersGame.typeTest == 'Player'){
-        this.addAI(idRoom, playerAI, parametersGame.color);
         this.addPlayer(idRoom, player);
+        this.addAI(idRoom, playerAI, parametersGame.color);
       }else if(parametersGame.typeTest == 'AI'){
         //this.addAI(idRoom, player, ai);
         //this.addAI(idRoom, player, ai);

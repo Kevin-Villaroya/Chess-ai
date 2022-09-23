@@ -128,6 +128,8 @@ module.exports = class Chess {
         player2: this.player2.data()
       });
     }
+
+    this.evalAI();
   }
 
   sendGameState(positionInit, positionFinal){
@@ -160,7 +162,7 @@ module.exports = class Chess {
   listen(){
     if(this.type == 'local'){
       this.listenLocal();
-    }else if(this.type == 'online'){
+    }else if(this.type == 'test'){
       this.listenOnline();
     }
   }
@@ -176,24 +178,42 @@ module.exports = class Chess {
   }
 
   listenOnline(){
-    this.player1.getSocket().on('move', (data) => {
-      this.movePiece(data.positionInit, data.positionFinal);
-    });
-
-    this.player2.getSocket().on('move', (data) => {
-      this.movePiece(data.positionInit, data.positionFinal);
+    this.player1.getSocket().on('move', (positionInit, positionFinal) => {
+      if(this.player1.color == this.colorTurn && !this.player1.isAI()){
+        this.movePiece(positionInit, positionFinal);
+      }
     });
 
     this.player1.getSocket().on('changePawn', (posInit, posFinal, pieceType) => {
-      this.changePawn(posInit, posFinal, pieceType);
+      if(this.player1.color == this.colorTurn && !this.player1.isAI()){
+        this.changePawn(posInit, posFinal, pieceType);
+      }
+    });
+
+    this.player2.getSocket().on('move', (positionInit, positionFinal) => {
+      if(this.player2.color == this.colorTurn && !this.player2.isAI()){
+        this.movePiece(positionInit, positionFinal);
+      }
     });
 
     this.player2.getSocket().on('changePawn', (posInit, posFinal, pieceType) => {
-      this.changePawn(posInit, posFinal, pieceType);
+      if(this.player2.color == this.colorTurn && !this.player2.isAI()){
+        this.changePawn(posInit, posFinal, pieceType);
+      }
     });
   }
 
   /** ============================== MECANICS  ============================== **/
+
+  evalAI(){
+    if(this.player1.isAI() && this.player1.color == this.colorTurn){
+      this.player1.evalAI(this);
+    }
+
+    if(this.player2.isAI() && this.player2.color == this.colorTurn){
+      this.player2.evalAI(this);
+    }
+  }
 
   getPiece(position){
     for(let piece of this.pieces){      
@@ -275,6 +295,7 @@ module.exports = class Chess {
           this.sendGameOver();
         }else{
           this.sendGameState(positionInit, positionFinal);
+          this.evalAI();
         }
       }
     }
