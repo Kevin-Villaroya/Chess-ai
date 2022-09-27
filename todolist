@@ -1,6 +1,14 @@
-- Probleme de jeu lors d'une partie test
-- creer une route de test avec en parametre le path de l'ia et les parametres precedemment demandé
 - Apres le chargement de la page creation de la room et mise en place de la partie (demandé 1 joueur ou 0 joueur)
 - faire api test de ia (humain vs ia)
     - en cas de crash faire un coup aleatoire (ia simple)
     - limité le temps de calcul de chaque tour
+
+- Context de l'ia
+    - Une copie de l'instance principale de l'echiquier
+    - L'appel d'un move influencera la board principale, en passant par la copie pour effectuer des verification.
+    - Pour le moment l'acces au données suiffit pas besoin d'ajouter de methode
+
+    - probleme d'inclusion circulaire !!
+        - lors de l'evaluation le joueur recoit data echiquier (copy)! et creer une instance de echequierProxy que l'ia manipule et finit par utiliser la methode move, qui mettra fin au reste de l'ia.
+
+Dans l'editeur d'ia acceder directement a l'ia par default
