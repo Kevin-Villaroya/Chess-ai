@@ -207,11 +207,11 @@ module.exports = class Chess {
 
   evalAI(){
     if(this.player1.isAI() && this.player1.color == this.colorTurn){
-      this.player1.evalAI(this);
+      this.player1.evalAI(this.getContext());
     }
 
     if(this.player2.isAI() && this.player2.color == this.colorTurn){
-      this.player2.evalAI(this);
+      this.player2.evalAI(this.getContext());
     }
   }
 
@@ -333,6 +333,18 @@ module.exports = class Chess {
         }else if(piece.doubleMovement){
           piece.doubleMovement = false;
         }
+      }
+    }
+  }
+
+  getContext(){
+    return {
+      pieces: this.pieces,
+      colorTurn: this.colorTurn,
+      movePiece: function(posInit, posFinal){
+        let chessState = this;
+        
+        chessState.movePiece(posInit, posFinal);
       }
     }
   }

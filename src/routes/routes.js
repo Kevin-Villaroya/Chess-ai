@@ -3,6 +3,7 @@ let router = express.Router();
 
 const Player = require('../chess/model/Player');
 const db = require('../dbAccess/dbAccess');
+const utils = require('../utils/utils');
 
 //routes for the index page
 
@@ -39,20 +40,23 @@ router.get('/disconnect', (req, res) => {
 });
 
 router.get('/editAI', async (req, res) => {
+  let hasToSendHome = await utils.sendHomeIfNotConnected(req, res);
+
+  if(hasToSendHome){
+    console.log("here");
+    return;
+  }
+
   let user = await db.getUserBySession(req.sessionID);
   let player = new Player();
 
-  if(user != null || user != undefined){
-    player.initByDatabase(user);
+  player.initByDatabase(user);
 
-    res.render("pages/editAI", {
-      player: player.data(),
-      root: user.root,
-      title : 'edit AI'
-    });
-  }else{
-    res.redirect('/');
-  }
+  res.render("pages/editAI", {
+    player: player.data(),
+    root: user.root,
+    title : 'edit AI'
+  });
 });
 
 module.exports = router;

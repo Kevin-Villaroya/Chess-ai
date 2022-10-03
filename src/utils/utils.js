@@ -1,19 +1,25 @@
 let utils = {}
 
+const db = require('../dbAccess/dbAccess');
+
 utils.createErrorRequest = function (isSuccess, messageError){
   return {success : isSuccess, message : messageError||""};
 }
 
-utils.pathToString = function (path, fileName){
-  let pathString = "";
-
-  for(let i = 0; i < path.length; i++){
-    pathString += path[i] + "/";
+utils.sendHomeIfNotConnected = async function (req, res){
+  if(req.session.id == undefined){
+    res.redirect('/');
+    return true;
   }
 
-  pathString += fileName;
-  
-  return pathString;
+  let user = await db.getUserBySession(req.sessionID);
+
+  if(user == null){
+    res.redirect('/');
+    return true;
+  }
+
+  return false;
 }
 
 module.exports = utils;

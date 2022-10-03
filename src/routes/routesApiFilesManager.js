@@ -4,7 +4,12 @@ let router = express.Router();
 var db = require('../dbAccess/dbAccess');
 var utils = require('../utils/utils');
 
-router.post('/saveFile', (req, res) => {
+router.post('/saveFile', async (req, res) => {
+  let hasToSendHome = await utils.sendHomeIfNotConnected(req, res);
+  if(hasToSendHome){
+    return;
+  }
+
   let fileName = req.body.name;
   let fileContent = req.body.content;
   let id = req.session.id;
@@ -34,7 +39,12 @@ router.post('/saveFile', (req, res) => {
 
 });
 
-router.post('/addFile', (req, res) => {
+router.post('/addFile', async (req, res) => {
+  let hasToSendHome = await utils.sendHomeIfNotConnected(req, res);
+  if(hasToSendHome){
+    return;
+  }
+
   let fileName = req.body.name;
   let fileContent = req.body.content;
   let id = req.session.id;
@@ -65,7 +75,12 @@ router.post('/addFile', (req, res) => {
   });
 });
 
-router.post('/addFolder', (req, res) => {
+router.post('/addFolder', async (req, res) => {
+  let hasToSendHome = await utils.sendHomeIfNotConnected(req, res);
+  if(hasToSendHome){
+    return;
+  }
+
   let folderName = req.body.name;
   let id = req.session.id;
   let path = req.body.path;
@@ -94,7 +109,12 @@ router.post('/addFolder', (req, res) => {
   } );
 });
 
-router.delete('/deleteFile', (req, res) => {
+router.delete('/deleteFile', async (req, res) => {
+  let hasToSendHome = await utils.sendHomeIfNotConnected(req, res);
+  if(hasToSendHome){
+    return;
+  }
+
   let id = req.session.id;
   let path = req.body.path;
   let fileName = req.body.name;
@@ -121,7 +141,12 @@ router.delete('/deleteFile', (req, res) => {
 });
 
 
-router.post('/renameFile', (req, res) => {
+router.post('/renameFile', async (req, res) => {
+  let hasToSendHome = await utils.sendHomeIfNotConnected(req, res);
+  if(hasToSendHome){
+    return;
+  }
+
   let id = req.session.id;
   let path = req.body.path;
   let fileName = req.body.name;
@@ -137,6 +162,11 @@ router.post('/renameFile', (req, res) => {
 });
 
 router.get('/getFile/:fileName/:path', async (req, res) => {
+  let hasToSendHome = await utils.sendHomeIfNotConnected(req, res);
+  if(hasToSendHome){
+    return;
+  }
+  
   let fileName = req.params.fileName;
   let path = JSON.parse(req.params.path);
   let id = req.session.id;

@@ -20,8 +20,14 @@ module.exports = class Player{
     }
 
     let ai = await dbAccess.getContentFile(this.id, this.ai);
-    console.log(ai);
-    eval(ai);
+
+    try{
+     let evaluation = (new Function( "with(this) { " + ai + "}")).call(chess);
+     return evaluation;
+    }catch(e){
+      console.error(e);
+    }
+
   }
 
   setHasAI(player, pathAI){

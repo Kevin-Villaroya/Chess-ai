@@ -26,6 +26,11 @@ router.get('/local', async (req, res) => {
 });
 
 router.get('/test/:typeGame/:colorAI/:aiToTest', async (req, res) => {
+  let hasToSendHome = await utils.sendHomeIfNotConnected(req, res);
+  if(hasToSendHome){
+    return;
+  }
+
   let user = await db.getUserBySession(req.sessionID);
   
   let aiPlayer = new Player();

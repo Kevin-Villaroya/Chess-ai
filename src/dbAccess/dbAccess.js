@@ -7,8 +7,6 @@ require('dotenv').config();
 var db;
 var dbAccess = {};
 
-var utils = require('../utils/utils');
-
 MongoClient.connect(process.env.MONGO_URL, 
   {
     useNewUrlParser: true,
@@ -24,7 +22,6 @@ MongoClient.connect(process.env.MONGO_URL,
 });
 
 /*=========================  DB ACCESS USER FUNCTIONS  ================================*/
-
 dbAccess.existUser = function existUser(email, nickname, callback){
   let queryEmail = { 
    $or:
@@ -169,7 +166,7 @@ dbAccess.setMainAI = async function (fileReceived, path, idSession){
     return null;
   }
 
-  let aiMain = utils.pathToString(path, fileReceived.name);
+  let aiMain = pathToString(path, fileReceived.name);
 
   db.collection('users').updateOne({_id : user._id}, {$set : {ai : aiMain}});
 }
@@ -182,7 +179,7 @@ dbAccess.deleteMainAI = async function (fileName, path, idSession){
   }
 
   let file = getFileAt(user.root, path, fileName);
-  let aiMain = utils.pathToString(path, fileName);
+  let aiMain = pathToString(path, fileName);
 
   if(file == null || user.ai != aiMain){
     return null;
@@ -425,6 +422,18 @@ dbAccess.getContentFile = async function(idUser, path){
 
 /*===================== UTILS ========================*/
 /*===================== UTILS FILES ========================*/
+
+function pathToString(path, fileName){
+  let pathString = "";
+
+  for(let i = 0; i < path.length; i++){
+    pathString += path[i] + "/";
+  }
+
+  pathString += fileName;
+  
+  return pathString;
+}
 
 function getFolderAt(root, path){ 
   if(path == undefined || path.length == 0){

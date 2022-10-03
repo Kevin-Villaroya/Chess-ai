@@ -12,3 +12,5 @@
         - lors de l'evaluation le joueur recoit data echiquier (copy)! et creer une instance de echequierProxy que l'ia manipule et finit par utiliser la methode move, qui mettra fin au reste de l'ia.
 
 Dans l'editeur d'ia acceder directement a l'ia par default
+Foler ajouter une fleche quand il est reduced
+Quand un folder est supprimer, retirer le fichier main si il est present
